@@ -1,0 +1,22 @@
+{
+  "name": "ontheroad",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sharni595/OnTheRoad.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sharni595/OnTheRoad/issues"
+  },
+  "homepage": "https://github.com/sharni595/OnTheRoad#readme",
+  "dependencies": {
+    "concurrently": "^6.2.0"
+  }
+}
