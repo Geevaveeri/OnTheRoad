@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
-const userSchema = require('./User');
 const stopSchema = require('./Stop');
-// import expenses
+const expenseSchema = require('./Expense');
+const imageSchema = require('./Image');
 
 const roadtripSchema = new Schema(
     {
