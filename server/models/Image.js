@@ -1,23 +1,18 @@
 const { Schema } = require('mongoose');
-const commentSchema = require('./Comment');
 
-const expenseSchema = new Schema(
+const imageSchema = new Schema(
     {
-        category: {
-            type: String,
-            required: true,
-            trim: true
-        },
-        cost: {
-            type: Number,
-            required: true,
-            trim: true
-        },
-        comment: {
-            type: String,
-            trim: true
-        },
         username: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        url: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        alt: {
             type: String,
             required: true,
             trim: true
@@ -25,4 +20,4 @@ const expenseSchema = new Schema(
     }
 );
 
-module.exports = expenseSchema;
+module.exports = imageSchema;
