@@ -26,12 +26,7 @@ const userSchema = new Schema(
                 ref: 'Roadtrip'
             }
         ],
-        expenses: [
-            {
-                types: Schema.Types.ObjectId,
-                ref: 'Expense'
-            }
-        ]
+        expenses: [expenseSchema]
     }
 );
 
