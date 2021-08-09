@@ -1,4 +1,15 @@
-//  about
-// contact
-// copyright
-// image
+import React from 'react';
+
+const Footer = () => {
+    return (
+        <footer>
+            <div>
+                &copy;2021 by Sharni Zaugg, Kota Ewing, Casey Rose, and Michelle Gleave
+            </div>
+        </footer>
+    );
+};
+
+export default Footer;
+
+// image for footer, where to contact, &copy and contributors, tag line
