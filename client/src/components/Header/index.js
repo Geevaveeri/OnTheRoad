@@ -9,13 +9,13 @@ const Header = () => {
     };
 
     return (
-        <header>
-          <div>
+        <header className='header'>
+          <div className='title'>
             <Link to="/">
               <h1>On The Road</h1>
             </Link>
     
-            <nav>
+            <nav className='nav'>
               {Auth.loggedIn() ? (
                 <>
                   <a href="/" onClick={logout}>

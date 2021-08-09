@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <footer>
+        <footer className='footer'>
             <div>
                 &copy;2021 by Sharni Zaugg, Kota Ewing, Casey Rose, and Michelle Gleave
             </div>
