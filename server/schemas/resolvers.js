@@ -8,8 +8,12 @@ const resolvers = {
 			if (context.user) {
 				const userData = await User.findOne({ _id: context.user._id })
 					.select("-__v -password")
-					.populate(" expenses")
+					.populate("roadtrips")
+					.populate(" expenses");
+
+				return userData;
 			}
+			throw new AuthenticationError("Not Logged In");
 		},
 	},
 
