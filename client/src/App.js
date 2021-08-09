@@ -41,6 +41,9 @@ function App() {
               <Route exact path="/signup" component={Signup} />
             </Switch>
           </div>
+          <footer>
+            <Footer></Footer>
+          </footer>
         </div>
       </Router>
     </ApolloProvider>
