@@ -3,6 +3,8 @@ import { useMutation } from '@apollo/react-hooks';
 import { LOGIN_USER } from '../utils/mutations'
 import { Input } from '@material-ui/core';
 
+import logo from '../assets/images/logo.png';
+
 import Auth from '../utils/auth';
 
 const Login = props => {
@@ -38,13 +40,10 @@ const Login = props => {
     };
 
     return (
-        <section>
+        <section class='login'>
             <div>
-                <h4>
-                    Login
-                </h4>
                 <form onSubmit={handleFormSubmit}>
-                    <Input 
+                    <Input
                         className=''
                         placeholder='Email Address'
                         name='email'
@@ -53,19 +52,22 @@ const Login = props => {
                         value={formState.email}
                         onChange={handleChange}
                     />
-                    <Input 
+                    <br></br>
+                    <Input
                         className=''
-                        placeholder='********'
+                        placeholder="Password"
                         name='password'
                         type='password'
                         id='password'
                         value={formState.password}
                         onChange={handleChange}
                     />
-                    <button className='' type='submit'>
+                    <br></br>
+                    <button className='loginBtn' type='submit'>
                         Login
                     </button>
                 </form>
+                <img src={logo}></img>
 
                 {error && <div>Login failed, please check your email and password!</div>}
             </div>

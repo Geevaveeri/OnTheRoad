@@ -3,6 +3,8 @@ import { useMutation } from '@apollo/react-hooks';
 import { CREATE_USER } from '../utils/mutations';
 import { Input } from '@material-ui/core';
 
+import logo from '../assets/images/logo.png';
+
 import Auth from '../utils/auth';
 
 const Signup = () => {
@@ -27,7 +29,7 @@ const Signup = () => {
             });
 
             console.log(data);
-           
+
             Auth.login(data.createUser.token);
         } catch (error) {
             console.error(error);
@@ -35,11 +37,8 @@ const Signup = () => {
     };
 
     return (
-        <section>
+        <section class="signup">
             <div>
-                <h4>
-                    Sign Up
-                </h4>
                 <form onSubmit={handleFormSubmit}>
                     <Input
                         className=''
@@ -50,6 +49,7 @@ const Signup = () => {
                         value={formState.username}
                         onChange={handleChange}
                     />
+                    <br></br>
                     <Input
                         className=''
                         placeholder='Email Address'
@@ -59,6 +59,7 @@ const Signup = () => {
                         value={formState.email}
                         onChange={handleChange}
                     />
+                    <br></br>
                     <Input
                         className=''
                         placeholder='********'
@@ -68,10 +69,12 @@ const Signup = () => {
                         value={formState.password}
                         onChange={handleChange}
                     />
-                    <button type='submit'>
+                    <br></br>
+                    <button class='signUpBtn' type='submit'>
                         Sign Up
                     </button>
                 </form>
+                <img src={logo}></img>
 
                 {error && <div>Signup failed, please try again!</div>}
             </div>

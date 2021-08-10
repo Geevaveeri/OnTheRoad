@@ -49,26 +49,26 @@ const Dashboard = () => {
                         >
                             <Box class='newSignUp'>
 
-                                <Card className={classes.root}>
-                                    <CardActionArea>
+                                <div className={classes.root}>
+                                    <div>
                                         <div>
                                             <img src={logo.default}></img>
                                         </div>
-                                        <CardContent>
+                                        <div>
                                             <Typography gutterBottom variant="h5" component="h2">
                                                 New to On The Road?
                                             </Typography>
                                             <Typography variant="body2" color="textSecondary" component="p">
                                                 Join and create your first road trip today!
                                             </Typography>
-                                        </CardContent>
-                                    </CardActionArea>
-                                    <CardActions>
+                                        </div>
+                                    </div>
+                                    <div class='signupBtn'>
                                         <Grid item xs={12}>
                                             <Link to="/signup">Sign Up</Link>
                                         </Grid>
-                                    </CardActions>
-                                </Card>
+                                    </div>
+                                </div>
                             </Box>
                         </Grid>
                     </>

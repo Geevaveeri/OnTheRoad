@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Auth from '../../utils/auth';
 
 // imports from Material UI
 import { makeStyles } from '@material-ui/core/styles';
