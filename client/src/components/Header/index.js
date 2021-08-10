@@ -9,24 +9,23 @@ const Header = () => {
     };
 
     return (
-        <header className='header'>
-          <div className='title'>
-            <Link to="/">
-              <h1>On The Road</h1>
-            </Link>
-    
-            <nav className='nav'>
+        <header class='header'>
+            <div>
+                <nav className='nav'>
+                    <Link to="/">
+                        <h1>On The Road</h1>
+                    </Link>
               {Auth.loggedIn() ? (
-                <>
-                  <a href="/" onClick={logout}>
-                    Logout
+                            <>
+                                <a href="/" onClick={logout}>
+                                    Logout
                   </a>
-                </>
-              ) : (
-                <>
-                  <Link to="/login">Login</Link>
-                </>
-              )}
+                            </>
+                        ) : (
+                                <>
+                                    <Link to="/login">Login</Link>
+                                </>
+                            )}
             </nav>
           </div>
         </header>
