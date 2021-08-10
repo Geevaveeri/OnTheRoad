@@ -32,4 +32,6 @@ const roadtripSchema = new Schema(
     }
 );
 
-module.exports = roadtripSchema;
+const Roadtrip = model("Roadtrip", roadtripSchema);
+
+module.exports = Roadtrip;
