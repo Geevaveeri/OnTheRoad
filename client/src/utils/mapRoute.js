@@ -29,3 +29,25 @@ export const addressToCoords = async (address) => {
 
     return coords.results[0];
 }
+
+export const getOptRoute = async (coords) => {
+    const splitCoords = coords.map(coord => {
+        return `${coord.lat}%2C${coord.lng}`
+    })
+
+    const urlEncode = splitCoords.join('%3B')
+
+    const getRoute = await fetchOptRoute(urlEncode);
+
+    const legs = getRoute.route.legs
+
+    const stops = legs.map((leg, idx) => {
+        return `${leg.start_point.lat},${leg.start_point.lng}/`
+    })
+
+    stops.push(`${legs[legs.length - 1].end_point.lat},${legs[legs.length - 1].end_point.lng}`)
+
+    const stopsOrdered = stops.join('')
+
+    return (`www.google.com/maps/dir/${stopsOrdered}`)
+}
