@@ -16,9 +16,132 @@ const resolvers = {
 			}
 			throw new AuthenticationError("Not Logged In");
 		},
+		user: async (parent, { username }, context) => {
+			if (context.user) {
+				const userData = await User.findOne({ username })
+					.select("-__v -password")
+					.populate("roadtrips")
+					.populate(" expenses");
+
+				return userData;
+			}
+		},
+		users: async (parent, args, context) => {
+			if (context.user) {
+				const userdata = await User.find()
+					.select("-__v -password")
+					.populate("roadtrips")
+					.populate(" expenses");
+
+				return userdata;
+			}
+		},
+		roadtrip: async (parant, { _id }, context) => {
+			if (context.user) {
+				const roadtripData = await Roadtrip.findOne({ _id })
+					.select("-__v")
+					.populate("images")
+					.populate("expenses")
+					.populate("stops")
+					.populate("users");
+
+				return roadtripData;
+			}
+		},
+		roadtrips: async (parent, args, context) => {
+			if (context.user) {
+				const roadtripData = await Roadtrip.find()
+					.select("-__v")
+					.populate("images")
+					.populate("expenses")
+					.populate("stops")
+					.populate("users");
+
+				return roadtripData;
+			}
+		},
 	},
 
 	Mutation: {
+		createUser: async (parent, args) => {
+			const user = await User.create(args);
+			const token = signToken(user);
+
+			return { token, user };
+		},
+		login: async (parent, { email, password }) => {
+			const user = await User.findOne({ email });
+
+			if (!user) {
+				throw new AuthenticationError("Incorrect Credentials");
+			}
+
+			const correctPw = await user.isCorrectPassword(password);
+
+			if (!correctPw) {
+				throw new AuthenticationError("Incorrect crendentials");
+			}
+
+			const token = signToken(user);
+			return { token, user };
+		},
+		addUser: async (parent, { username, _id }, context) => {
+			if (context.user) {
+				const user = await User.findOne({ username });
+
+				const updatedRoadtrip = await Roadtrip.findOneAndUpdate(
+					{ _id: _id },
+					{ $push: { users: user } },
+					{ new: true }
+				)
+					.select("-__v")
+					.populate("images")
+					.populate("expenses")
+					.populate("stops")
+					.populate("users");
+
+				return updatedRoadtrip;
+			}
+
+			throw new AuthenticationError("You need to be logged in!");
+		},
+		removeUser: async (parent, { username, _id }, context) => {
+			if (context.user) {
+				const user = await User.findOne({ username });
+
+				const updatedRoadtrip = await Roadtrip.findOneAndUpdate(
+					{ _id: _id },
+					{ $pull: { users: user } },
+					{ new: true }
+				)
+					.select("-__v")
+					.populate("images")
+					.populate("expenses")
+					.populate("stops")
+					.populate("users");
+
+				return updatedRoadtrip;
+			}
+
+			throw new AuthenticationError("You need to be logged in!");
+		},
+		addRoadtrip: async (parent, args, context) => {
+			if (context.user) {
+				const roadTrip = await Roadtrip.create({
+					...args,
+					users: context.user._id,
+				});
+
+				await User.findOneAndUpdate(
+					{ _id: context.user._id },
+					{ $push: { roadtrips: roadTrip._id } },
+					{ new: true }
+				);
+
+				return roadTrip;
+			}
+			throw new AuthenticationError("You need to be logged in!");
+		},
 		addImage: async (parent, args, context) => {
 			if (context.user) {
 				const file = args.photo;
@@ -47,5 +170,5 @@ const resolvers = {
 
 module.exports = resolvers;
 
-// Query ( me, user, users, roadtrip, roadtrips )
-// Mutation (login, signup, createUser, addUser, removeUser, addRoadtrip, deleteRoadtrip, addExpense, updateExpense, deleteExpense, addImage, deleteImage, addStop, deleteStop)
+// Query ( *me, *user, *users, *roadtrip, *roadtrips )
+// Mutation (*login, signup, *createUser, *addUser,*removeUser, *addRoadtrip, deleteRoadtrip, addExpense, updateExpense, deleteExpense, addImage, deleteImage, addStop, deleteStop)

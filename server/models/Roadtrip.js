@@ -1,7 +1,7 @@
-const { Schema, model } = require('mongoose');
-const stopSchema = require('./Stop');
-const expenseSchema = require('./Expense');
-const imageSchema = require('./Image');
+const { Schema, model } = require("mongoose");
+const stopSchema = require("./Stop");
+const expenseSchema = require("./Expense");
+const imageSchema = require("./Image");
 
 const roadtripSchema = new Schema(
     {
