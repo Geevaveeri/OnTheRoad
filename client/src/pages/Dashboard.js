@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import RoadtripList from '../components/RoadtripList';
 
 const logo = require('../assets/images/logo.png');
 
@@ -23,10 +24,33 @@ const Dashboard = () => {
         <div className='dashboard'>
             {Auth.loggedIn() ? (
                 <>
-                    <h1>Welcome to On The Road!</h1>
-                    <Link to="/roadtrips">
-                        My Roadtrips
-                            </Link>
+                    <Grid
+                        container
+                        spacing={0}
+                        direction="column"
+                        alignItems="center"
+                        justify="center"
+                        style={{ minHeight: '100vh' }}
+                    >
+                        <Box>
+                            <div className={classes.root}>
+                                <div>
+                                    <h1>Welcome, User!</h1>
+                                    <div>
+                                        {/* insert roadtrips list here */}
+                                    </div>
+                                </div>
+                                <div className='signupBtn'>
+                                    <Grid item xs={12}>
+                                        <Link to="/new">Add New Roadtrip</Link>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Link to="/recipes">My Recipes</Link>
+                                    </Grid>
+                                </div>
+                            </div>
+                        </Box>
+                    </Grid>
                 </>
             ) : (
                     <>
@@ -38,7 +62,7 @@ const Dashboard = () => {
                             justify="center"
                             style={{ minHeight: '100vh' }}
                         >
-                            <Box class='newSignUp'>
+                            <Box className='newSignUp'>
 
                                 <div className={classes.root}>
                                     <div>
@@ -54,7 +78,7 @@ const Dashboard = () => {
                                             </Typography>
                                         </div>
                                     </div>
-                                    <div class='signupBtn'>
+                                    <div className='signupBtn'>
                                         <Grid item xs={12}>
                                             <Link to="/signup">Sign Up</Link>
                                         </Grid>
