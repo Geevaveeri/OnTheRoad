@@ -23,7 +23,7 @@ const userSchema = new Schema({
 	},
 	roadtrips: [
 		{
-			types: Schema.Types.ObjectId,
+			type: Schema.Types.ObjectId,
 			ref: "Roadtrip",
 		},
 	],
