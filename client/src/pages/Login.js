@@ -40,7 +40,7 @@ const Login = props => {
     };
 
     return (
-        <section class='login'>
+        <section className='login'>
             <div>
                 <form onSubmit={handleFormSubmit}>
                     <Input
@@ -67,7 +67,7 @@ const Login = props => {
                         Login
                     </button>
                 </form>
-                <img src={logo}></img>
+                <img src={logo} alt='site logo'></img>
 
                 {error && <div>Login failed, please check your email and password!</div>}
             </div>

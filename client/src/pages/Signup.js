@@ -37,7 +37,7 @@ const Signup = () => {
     };
 
     return (
-        <section class="signup">
+        <section className="signup">
             <div>
                 <form onSubmit={handleFormSubmit}>
                     <Input
@@ -70,11 +70,11 @@ const Signup = () => {
                         onChange={handleChange}
                     />
                     <br></br>
-                    <button class='signUpBtn' type='submit'>
+                    <button className='signUpBtn' type='submit'>
                         Sign Up
                     </button>
                 </form>
-                <img src={logo}></img>
+                <img src={logo} alt='site logo'></img>
 
                 {error && <div>Signup failed, please try again!</div>}
             </div>
