@@ -32,7 +32,7 @@ const resolvers = {
 
 				const image = await Image.create({
 					username: args.username,
-					url: getUrl,
+					url: getUrl.result.secure_url,
 					alt: args.alt
 				})
 
