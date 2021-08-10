@@ -28,6 +28,8 @@ const typeDefs = gql`
 		_id: ID
 		lat: String
 		lon: String
+		name: String
+		address: String
 	}
 	type User {
 		_id: ID
