@@ -10,6 +10,11 @@ const roadtripSchema = new Schema(
             required: true,
             trim: true
         },
+        start: {
+            type: String,
+            required: true,
+            trim: true
+        },
         destination: {
             type: String,
             required: true,

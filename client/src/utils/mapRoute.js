@@ -1,4 +1,4 @@
-export const fetchCoordinates = async (address) => {
+const fetchCoordinates = async (address) => {
     const fetchCoord = await fetch(`https://trueway-geocoding.p.rapidapi.com/Geocode?address=${param}&language=en`, {
         "method": "GET",
         "headers": {
@@ -10,7 +10,7 @@ export const fetchCoordinates = async (address) => {
     return await fetchCoord.json();
 }
 
-export const fetchOptRoute = async (coords) => {
+const fetchOptRoute = async (coords) => {
     const fetchRoute = await fetch(`https://trueway-directions2.p.rapidapi.com/FindDrivingRoute?stops=${param}&optimize=true`, {
         "method": "GET",
         "headers": {
