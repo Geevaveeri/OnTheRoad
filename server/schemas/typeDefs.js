@@ -17,6 +17,7 @@ const typeDefs = gql`
 	type Roadtrip {
 		_id: ID
 		name: String
+		start: String
 		destination: String
 		playlist: String
 		images: [Image]
@@ -28,6 +29,8 @@ const typeDefs = gql`
 		_id: ID
 		lat: String
 		lon: String
+		name: String
+		address: String
 	}
 	type User {
 		_id: ID

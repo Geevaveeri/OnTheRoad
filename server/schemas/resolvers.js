@@ -1,6 +1,7 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Roadtrip } = require("../models");
+const { User, Roadtrip, Image } = require("../models");
 const { signToken } = require("../utils/auth");
+const cloudinary = require('cloudinary').v2;
 
 const resolvers = {
 	Query: {
@@ -143,13 +144,36 @@ const resolvers = {
 			}
 			throw new AuthenticationError("You need to be logged in!");
 		},
-		deleteRoadtrip: async (parent, { _id }, context) => {
+    	deleteRoadtrip: async (parent, { _id }, context) => {
 			if (context.user) {
 				const updatedRoadTrip = await Roadtrip.deleteOne({ _id });
 
 				return updatedRoadTrip;
 			}
 		},
+		addImage: async (parent, args, context) => {
+			if (context.user) {
+				const file = args.photo;
+				const ext = args.ext;
+				const getUrl = await cloudinary.uploader.upload(`${file}.${ext}`, (err, result) => {
+					if (err) {
+						console.log('Cloudinary error: ' + err);
+					}
+					return { success: true, result };
+				})
+
+				const image = await Image.create({
+					username: args.username,
+					url: getUrl.result.secure_url,
+					alt: args.alt
+				})
+
+				return image
+			}
+
+			throw new AuthenticationError("Not Logged In");
+
+		}
 	},
 };
 
