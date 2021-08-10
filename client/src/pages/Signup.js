@@ -26,6 +26,8 @@ const Signup = () => {
                 variables: { ...formState }
             });
 
+            console.log(data);
+           
             Auth.login(data.createUser.token);
         } catch (error) {
             console.error(error);
@@ -66,8 +68,8 @@ const Signup = () => {
                         value={formState.password}
                         onChange={handleChange}
                     />
-                    <button className='' type='submit'>
-                        Login
+                    <button type='submit'>
+                        Sign Up
                     </button>
                 </form>
 
