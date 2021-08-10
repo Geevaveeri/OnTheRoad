@@ -1,5 +1,5 @@
 const fetchCoordinates = async (address) => {
-    const fetchCoord = await fetch(`https://trueway-geocoding.p.rapidapi.com/Geocode?address=${param}&language=en`, {
+    const fetchCoord = await fetch(`https://trueway-geocoding.p.rapidapi.com/Geocode?address=${address}&language=en`, {
         "method": "GET",
         "headers": {
             "x-rapidapi-key": "b38f645fa0msh490534a54dae3fbp1fc29bjsn703e822658db",
@@ -11,7 +11,7 @@ const fetchCoordinates = async (address) => {
 }
 
 const fetchOptRoute = async (coords) => {
-    const fetchRoute = await fetch(`https://trueway-directions2.p.rapidapi.com/FindDrivingRoute?stops=${param}&optimize=true`, {
+    const fetchRoute = await fetch(`https://trueway-directions2.p.rapidapi.com/FindDrivingRoute?stops=${coords}&optimize=true`, {
         "method": "GET",
         "headers": {
             "x-rapidapi-key": "b38f645fa0msh490534a54dae3fbp1fc29bjsn703e822658db",
@@ -25,7 +25,7 @@ const fetchOptRoute = async (coords) => {
 export const addressToCoords = async (address) => {
     const urlEncode = address.replace(/\ /g, '%20').replace(/,/g, '%2C')
 
-    const coords = await coordFetch(urlEncode);
+    const coords = await fetchCoordinates(urlEncode);
 
     return coords.results[0];
 }
@@ -41,7 +41,7 @@ export const getOptRoute = async (coords) => {
 
     const legs = getRoute.route.legs
 
-    const stops = legs.map((leg, idx) => {
+    const stops = legs.map((leg) => {
         return `${leg.start_point.lat},${leg.start_point.lng}/`
     })
 
