@@ -1,14 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Auth from '../../utils/auth';
-
-import logo from '../../assets/images/logo.png';
 
 // imports from Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
     root: {
@@ -29,6 +25,7 @@ const useStyles = makeStyles({
 
 
 const RoadtripList = ({ roadtrips }) => {
+
     const classes = useStyles();
 
     if (!roadtrips.length) {
@@ -48,21 +45,22 @@ const RoadtripList = ({ roadtrips }) => {
                     justify="center"
                     style={{ minHeight: '100vh' }}
                 >
-                    <Box className='newSignUp'>
+                    <Box className='roadtripsList'>
 
                         <div className={classes.root}>
                             <div>
-                                <div>
-                                    <img src={logo.default} alt='site logo'></img>
-                                </div>
-                                <div>
-                                    <Typography gutterBottom variant="h5" component="h2">
-                                        New to On The Road?
-                                            </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        Join and create your first road trip today!
-                                            </Typography>
-                                </div>
+                                {roadtrips &&
+                                    roadtrips.map(roadtrip => {
+                                        <div key={roadtrip._id}>
+                                            <p>
+                                                <Link
+                                                    to={`/roadtrips/${roadtrip._id}`}
+                                                    >{roadtrip.name}
+                                                </Link>
+                                            </p>
+                                        </div>
+                                    }
+                                )}
                             </div>
                             <div className='signupBtn'>
                                 <Grid item xs={12}>

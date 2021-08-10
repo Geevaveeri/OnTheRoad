@@ -9,7 +9,11 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import RoadtripList from '../components/RoadtripList';
 
-const logo = require('../assets/images/logo.png');
+import logo from '../assets/images/logo.png';
+
+// queries and mutations
+import { MANY_TRIPS } from '../utils/queries';
+import { useQuery } from '@apollo/react-hooks';
 
 const useStyles = makeStyles({
     root: {
@@ -18,6 +22,9 @@ const useStyles = makeStyles({
 });
 
 const Dashboard = () => {
+    const { loading, data } = useQuery(MANY_TRIPS);
+    const roadtrips = data?.roadtrips || [];
+
     const classes = useStyles();
 
     return (
@@ -37,7 +44,11 @@ const Dashboard = () => {
                                 <div>
                                     <h1>Welcome, User!</h1>
                                     <div>
-                                        {/* insert roadtrips list here */}
+                                        {loading ? (
+                                            <div>Loading...</div>
+                                        ) : (
+                                                <RoadtripList roadtrips={roadtrips}/>
+                                            )}
                                     </div>
                                 </div>
                                 <div className='signupBtn'>

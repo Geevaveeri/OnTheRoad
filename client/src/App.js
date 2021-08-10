@@ -5,11 +5,12 @@ import ApolloClient from 'apollo-boost';
 
 import './App.css';
 
+// components
 import Header from './components/Header';
 import Footer from './components/Footer';
 
+// pages
 import Dashboard from './pages/Dashboard';
-
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 
