@@ -22,7 +22,7 @@ const typeDefs = gql`
 		images: [Image]
 		expenses: [Expense]
 		stops: [Stop]
-		user: [User]
+		users: [User]
 	}
 	type Stop {
 		_id: ID
@@ -38,10 +38,10 @@ const typeDefs = gql`
 	}
 	type Query {
 		me: User
-		user: User
-		users: User
-		roadtrip: Roadtrip
-		roadtrips: Roadtrip
+		user(username: String!): User
+		users: [User]
+		roadtrip(_id: ID!): Roadtrip
+		roadtrips: [Roadtrip]
 	}
 	type Auth {
 		token: ID!
@@ -50,9 +50,9 @@ const typeDefs = gql`
 	type Mutation {
 		login(email: String!, password: String!): Auth
 		createUser(username: String!, email: String!, password: String!): Auth
-		addUser(username: String!): User
-		removeUser(username: String!): User
-		AddRoadTrip(name: String!): Roadtrip
+		addUser(username: String!, _id: ID!): User
+		removeUser(username: String!, _id: ID!): User
+		addRoadtrip(name: String!): Roadtrip
 		deleteRoadTrip(_id: ID!): Roadtrip
 		addExpense(
 			category: String!
@@ -62,7 +62,7 @@ const typeDefs = gql`
 		): Roadtrip
 		updateExpense(category: String, cost: Int, comment: String): Roadtrip
 		deleteExpense(_id: ID!): Roadtrip
-		addImage(url: String!, alt: String!): Roadtrip
+		addImage(url: String!, alt: String!, username: String!): Roadtrip
 		deleteImage(_id: ID!): Roadtrip
 		addStop(lat: String!, lon: String!): Roadtrip
 		deleteStop(_id: ID!): Roadtrip

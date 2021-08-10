@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
 const expenseSchema = require("./Expense");
-const Roadtrip = require("./Roadtrip");
+//const Roadtrip = require("./Roadtrip");
 
 const userSchema = new Schema({
 	username: {
@@ -23,7 +23,7 @@ const userSchema = new Schema({
 	},
 	roadtrips: [
 		{
-			types: Schema.Types.ObjectId,
+			type: Schema.Types.ObjectId,
 			ref: "Roadtrip",
 		},
 	],
