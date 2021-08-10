@@ -77,7 +77,7 @@ a:link {
 
 /* login and sign up styles */
 
-.login, .signup {
+.login, .signup, .addTrip {
   position: relative;
   top: 22rem;
   padding: 10px;
@@ -98,7 +98,7 @@ a:link {
   margin-top: 35px;
 }
 
-.loginBtn, .signUpBtn, .signupBtn a {
+.loginBtn, .signUpBtn, .addTripBtn, .signupBtn a {
   margin-top: 30px;
   background-color: var(--light-orange);
   border-radius: 12px;

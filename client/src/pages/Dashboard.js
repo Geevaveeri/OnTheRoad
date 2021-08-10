@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+
 import RoadtripList from '../components/RoadtripList';
 
 import logo from '../assets/images/logo.png';
@@ -53,7 +54,7 @@ const Dashboard = () => {
                                 </div>
                                 <div className='signupBtn'>
                                     <Grid item xs={12}>
-                                        <Link to="/new">Add New Roadtrip</Link>
+                                        <Link to="/addTrip">Add New Roadtrip</Link>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Link to="/recipes">My Recipes</Link>
@@ -78,7 +79,7 @@ const Dashboard = () => {
                                 <div className={classes.root}>
                                     <div>
                                         <div>
-                                            <img src={logo.default} alt='site logo'></img>
+                                            <img src={logo} alt='site logo'></img>
                                         </div>
                                         <div>
                                             <Typography gutterBottom variant="h5" component="h2">
