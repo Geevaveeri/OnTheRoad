@@ -13,7 +13,7 @@ const roadtripSchema = new Schema({
 		type: String,
 		trim: true,
 	},
-	playlist: {
+	: {
 		type: String,
 		trim: true,
 	},
@@ -24,7 +24,7 @@ const roadtripSchema = new Schema({
 		{
 			type: Schema.Types.ObjectId,
 			ref: "User",
-		},
+		},playlist
 	],
 });
 

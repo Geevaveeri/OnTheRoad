@@ -4,10 +4,9 @@ import { Input } from '@material-ui/core';
 
 import { useMutation } from '@apollo/react-hooks';
 import { ADD_TRIP } from '../utils/mutations';
-import { MANY_TRIPS, GET_ME } from '../utils/queries';
 
 const AddRoadtrip = () => {
-    const [formState, setFormState] = useState({ name: '', destination: '' });
+    const [formState, setFormState] = useState({ name: '' });
     const [addTrip, {error}] = useMutation(ADD_TRIP);
 
     const handleChange = event => {
@@ -26,6 +25,8 @@ const AddRoadtrip = () => {
           const { data } = await addTrip({
             variables: { ...formState }
           });
+
+          addTrip(data.setFormState.name);
     
         } catch (error) {
           console.error(error);
@@ -45,7 +46,7 @@ const AddRoadtrip = () => {
                         onChange={handleChange}
                     />
                     <br></br>
-                    <Input
+                    {/* <Input
                         placeholder='Destination'
                         name='destination'
                         type='destination'
@@ -53,7 +54,7 @@ const AddRoadtrip = () => {
                         value={formState.destination}
                         onChange={handleChange}
                     />
-                    <br></br>
+                    <br></br> */}
                     <button className='addTripBtn' type='submit'>
                         Add Trip
                     </button>
