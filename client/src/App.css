@@ -26,6 +26,19 @@
   font-size: 14px;
 }
 
+.deleteBtn {
+  margin: 20px;  
+  background-color: var(--light-green);
+  border-radius: 12px;
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+}
+
 .submitBtn a:visited{
   color: white;
 }
@@ -120,7 +133,6 @@ a:link {
 .roadtripItem p {
   font-weight: lighter;
 }
-
 
 /* footer styles */
 

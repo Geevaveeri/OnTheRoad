@@ -35,7 +35,7 @@ const resolvers = {
 				return userdata;
 			}
 		},
-		roadtrip: async (parant, { _id }, context) => {
+		roadtrip: async (parent, { _id }, context) => {
 			if (context.user) {
 				const roadtripData = await Roadtrip.findOne({ _id })
 					.select("-__v")

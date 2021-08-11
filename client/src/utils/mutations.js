@@ -113,7 +113,7 @@ mutation addRoadtrip ($name: String!) {
 `;
 
 export const DELETE_TRIP = gql`
-mutation deleteRoadTrip($id: ID!) {
+mutation deleteRoadTrip($id: ID) {
     deleteRoadTrip ( id: $id) {
         _id
         name
@@ -137,7 +137,7 @@ mutation deleteRoadTrip($id: ID!) {
             lat
             lon
         }
-        user {
+        users {
             _id
             username
             roadtrips
