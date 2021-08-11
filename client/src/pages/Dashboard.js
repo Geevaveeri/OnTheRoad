@@ -52,12 +52,9 @@ const Dashboard = () => {
                                             )}
                                     </div>
                                 </div>
-                                <div className='signupBtn'>
+                                <div className='submitBtn'>
                                     <Grid item xs={12}>
                                         <Link to="/addTrip">Add New Roadtrip</Link>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <Link to="/recipes">My Recipes</Link>
                                     </Grid>
                                 </div>
                             </div>
@@ -71,7 +68,7 @@ const Dashboard = () => {
                             spacing={0}
                             direction="column"
                             alignItems="center"
-                            justify="center"
+                            justifyContent="center"
                             style={{ minHeight: '100vh' }}
                         >
                             <Box className='newSignUp'>
@@ -90,7 +87,7 @@ const Dashboard = () => {
                                             </Typography>
                                         </div>
                                     </div>
-                                    <div className='signupBtn'>
+                                    <div className='submitBtn'>
                                         <Grid item xs={12}>
                                             <Link to="/signup">Sign Up</Link>
                                         </Grid>

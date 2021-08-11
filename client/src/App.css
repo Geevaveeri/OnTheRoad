@@ -10,6 +10,26 @@
   text-align: center;
   font-family: 'Roboto', sans-serif;
 }
+
+/* buttons */
+
+.submitBtn {
+  margin-top: 30px;
+  background-color: var(--light-orange);
+  border-radius: 12px;
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+}
+
+.submitBtn a:visited{
+  color: white;
+}
+
 /* header and nav styles */
 
 .header {
@@ -70,11 +90,6 @@ a:link {
   width: 200px;
 }
 
-.dashboard a {
-  color: var(--dark-orange);
-  font-size: 1.5rem;
-}
-
 /* login and sign up styles */
 
 .login, .signup, .addTrip {
@@ -98,18 +113,6 @@ a:link {
   margin-top: 35px;
 }
 
-.submitBtn, .submitBtn a {
-  margin-top: 30px;
-  background-color: var(--light-orange);
-  border-radius: 12px;
-  border: none;
-  color: white;
-  padding: 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 18px;
-}
 /* footer styles */
 
 .footer {

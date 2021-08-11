@@ -4,7 +4,7 @@ import { ADD_TRIP } from '../utils/mutations';
 import { Input } from '@material-ui/core';
 
 const AddRoadtrip = () => {
-    const [formState, setFormState] = useState({ name: '' });
+    const [formState, setFormState] = useState({ name: '', destination: '' });
     const [addTrip, { error }] = useMutation(ADD_TRIP);
 
     const handleChange = event => {
@@ -35,7 +35,6 @@ const AddRoadtrip = () => {
             <div>
                 <form onSubmit={handleFormSubmit}>
                     <Input
-                        className=''
                         placeholder='Trip Name'
                         name='name'
                         type='name'
@@ -44,7 +43,16 @@ const AddRoadtrip = () => {
                         onChange={handleChange}
                     />
                     <br></br>
-                    <button className='submitBtn' type='submit'>
+                    <Input
+                        placeholder='Destination'
+                        name='destination'
+                        type='destination'
+                        id='destination'
+                        value={formState.destination}
+                        onChange={handleChange}
+                    />
+                    <br></br>
+                    <button className='addTripBtn' type='submit'>
                         Create
                     </button>
                 </form>

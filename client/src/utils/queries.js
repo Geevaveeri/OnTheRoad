@@ -123,7 +123,7 @@ query {
             lat
             lon
         }
-        user {
+        users {
             _id
             username
             roadtrips

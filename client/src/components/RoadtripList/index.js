@@ -62,7 +62,7 @@ const RoadtripList = ({ roadtrips }) => {
                                     }
                                 )}
                             </div>
-                            <div className='signupBtn'>
+                            <div className='submitBtn'>
                                 <Grid item xs={12}>
                                     <Link to="/signup">Sign Up</Link>
                                 </Grid>
