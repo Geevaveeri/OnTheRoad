@@ -5,13 +5,15 @@ import ApolloClient from 'apollo-boost';
 
 import './App.css';
 
+// components
 import Header from './components/Header';
 import Footer from './components/Footer';
 
+// pages
 import Dashboard from './pages/Dashboard';
-
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import AddRoadtrip from './pages/AddRoadtrip';
 
 const client = new ApolloClient({
   request: operation => {
@@ -39,6 +41,7 @@ function App() {
               <Route exact path='/' component={Dashboard} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
+              <Route exact path="/addTrip" component={AddRoadtrip} />
             </Switch>
           </div>
           <footer>
