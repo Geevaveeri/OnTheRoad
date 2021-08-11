@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
 
+import { Grid } from '@material-ui/core';
+
 const RoadtripList = ({ user }) => {
     const roadtrips = user.roadtrips;
 
@@ -10,27 +12,27 @@ const RoadtripList = ({ user }) => {
     }
 
     return (
-        <div>
-            <>
-                <section>
-                    <div>
+        <div className='roadtripList'>
+                <>
+                    <section>
                         <div>
-                            <h3>
-                                My Roadtrips
-                            </h3>
-                            {roadtrips.map(trip => (
-                                <div className='roadtripItem' key={trip._id}>
-                                    <h3>{trip.name}</h3>
-                                    <br></br>
-                                    <p>{trip.destination}</p>
-                                    <button class="submitBtn">Open</button>
-                                </div>
+                            <div>
+                                <h3>
+                                    My Roadtrips
+                                </h3>
+                                {roadtrips.map(trip => (
+                                    <div className='roadtripItem' key={trip._id}>
+                                        <h4>{trip.name}</h4>
+                                        <br></br>
+                                        <p>{trip.destination}</p>
+                                        <button class="submitBtn">Open</button>
+                                    </div>
 
-                            ))}
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                </section>
-            </>
+                    </section>
+                </>
         </div>
     )
 };

@@ -103,7 +103,8 @@ a:link {
 /* roadtrip list styles */
 
 .roadtripList {
-  height: 100%;
+  display: inline-block;
+  overflow: visible;
 }
 
 .roadtripItem {
@@ -128,18 +129,17 @@ a:link {
   background-position: center;
   width: 100vw;
   min-height: 12rem;
-  position: fixed;
-  bottom: 0;
+  position: bottom;
+  margin-top: 5rem;
+  color: var(--dark-green);
+
 }
 
 .footer p {
-  color: var(--dark-green);
-  padding: 5px;
-  position: fixed;
-  left: 10px;
-  right: 10px;
-  bottom: 0;
-  max-height: 5rem;
+  position: bottom;
+  margin-top: 10rem;
+  display: inline-block;
+
 }
 
 .footer a {
