@@ -24,7 +24,9 @@ const useStyles = makeStyles({
 });
 
 
-const RoadtripList = ({ roadtrips }) => {
+const RoadtripList = ({ user }) => {
+
+    const roadtrips = user.roadtrips;
 
     const classes = useStyles();
 
@@ -45,22 +47,15 @@ const RoadtripList = ({ roadtrips }) => {
                     justifyContent="center"
                     style={{ minHeight: '100vh' }}
                 >
-                    <Box className='roadtripsList'>
+                    <Box className='roadtripList'>
 
                         <div className={classes.root}>
                             <div>
-                                {roadtrips &&
-                                    roadtrips.map(roadtrip => {
-                                        <div key={roadtrip._id}>
-                                            <p>
-                                                <Link
-                                                    to={`/roadtrips/${roadtrip._id}`}
-                                                    >{roadtrip.name}
-                                                </Link>
-                                            </p>
-                                        </div>
-                                    }
-                                )}
+                                {roadtrips.map(trip => (
+                                    <h2>
+                                        {trip.name}
+                                    </h2>
+                                ))}
                             </div>
                         </div>
                     </Box>

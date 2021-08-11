@@ -26,9 +26,6 @@ const Dashboard = () => {
     const { loading, data } = useQuery(GET_ME);
 
     const user = data?.me || {};
-    const roadtrips = user.roadtrips || [];
-
-    console.log(roadtrips);
 
     const classes = useStyles();
 
@@ -53,7 +50,8 @@ const Dashboard = () => {
                                             <div>Loading...</div>
                                         ) : (
                                             <div>                                                    
-                                                <RoadtripList>
+                                                <RoadtripList
+                                                    user={user}>
                                                 </RoadtripList>
                                             </div>
                                             )}
