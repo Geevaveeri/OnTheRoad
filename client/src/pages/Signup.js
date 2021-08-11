@@ -37,11 +37,10 @@ const Signup = () => {
     };
 
     return (
-        <section className="signup">
+        <section className='signup'>
             <div>
                 <form onSubmit={handleFormSubmit}>
                     <Input
-                        className=''
                         placeholder='Username'
                         name='username'
                         type='username'
@@ -51,7 +50,6 @@ const Signup = () => {
                     />
                     <br></br>
                     <Input
-                        className=''
                         placeholder='Email Address'
                         name='email'
                         type='email'
@@ -61,7 +59,6 @@ const Signup = () => {
                     />
                     <br></br>
                     <Input
-                        className=''
                         placeholder='********'
                         name='password'
                         type='password'
