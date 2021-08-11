@@ -17,6 +17,7 @@ const typeDefs = gql`
 	type Roadtrip {
 		_id: ID
 		name: String
+		start: String
 		destination: String
 		playlist: String
 		images: [Image]
@@ -28,6 +29,8 @@ const typeDefs = gql`
 		_id: ID
 		lat: String
 		lon: String
+		name: String
+		address: String
 	}
 	type User {
 		_id: ID
@@ -51,9 +54,9 @@ const typeDefs = gql`
 		login(email: String!, password: String!): Auth
 		createUser(username: String!, email: String!, password: String!): Auth
 		addUser(username: String!, _id: ID!): User
-		removeUser(username: String!, _id: ID!): User
+		removeUser(userId: String!, _id: ID!): Roadtrip
 		addRoadtrip(name: String!): Roadtrip
-		deleteRoadTrip(_id: ID!): Roadtrip
+		deleteRoadtrip(_id: ID!): Roadtrip
 		addExpense(
 			category: String!
 			cost: Int!
