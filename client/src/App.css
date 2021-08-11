@@ -92,7 +92,7 @@ a:link {
 
 /* login and sign up styles */
 
-.login, .signup, .addTrip {
+.login, .signup, .addTrip, .roadtripList {
   position: relative;
   top: 22rem;
   padding: 10px;
@@ -120,14 +120,14 @@ a:link {
   background-position: center;
   width: 100vw;
   min-height: 12rem;
-  position: absolute;
+  position: fixed;
   bottom: 0;
 }
 
 .footer p {
   color: var(--dark-green);
   padding: 5px;
-  position: absolute;
+  position: fixed;
   left: 10px;
   right: 10px;
   bottom: 0;

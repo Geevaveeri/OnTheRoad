@@ -5,6 +5,12 @@ import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+import Card from '@material-ui/core/Card'
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+
 
 const useStyles = makeStyles({
     root: {
@@ -39,7 +45,8 @@ const RoadtripList = ({ user }) => {
     return (
         <div>
             <>
-                <Grid
+                <Grid 
+                    className='roadtripList'
                     container
                     spacing={0}
                     direction="column"
@@ -47,14 +54,18 @@ const RoadtripList = ({ user }) => {
                     justifyContent="center"
                     style={{ minHeight: '100vh' }}
                 >
-                    <Box className='roadtripList'>
+                    <Box>
 
                         <div className={classes.root}>
                             <div>
                                 {roadtrips.map(trip => (
-                                    <h2>
-                                        {trip.name}
-                                    </h2>
+                                    <Grid key={trip._id} item xs={4}>
+                                        <h3>{trip.name}</h3>
+                                        <br></br>
+                                        <p>{trip.destination}</p>
+
+                                    </Grid>
+
                                 ))}
                             </div>
                         </div>
