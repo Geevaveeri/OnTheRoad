@@ -5,6 +5,7 @@ import { DELETE_TRIP } from '../../utils/mutations';
 
 const RoadtripList = ({ user }) => {
     const roadtrips = user.roadtrips;
+    console.log(roadtrips);
 
     const [deleteRoadTrip] = useMutation(DELETE_TRIP);
 
@@ -36,7 +37,7 @@ const RoadtripList = ({ user }) => {
                             {roadtrips.map(trip => (
                                 <div className='roadtripItem' key={trip._id}>
                                     <h4>{trip.name}</h4>
-                                    <p>{trip.destination}</p>
+                                    <p>{trip.users}</p>
                                     <button id={trip._id} onClick={handleClick} className="deleteBtn">Delete</button>
                                 </div>
 
