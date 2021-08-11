@@ -28,7 +28,7 @@ const RoadtripList = ({ roadtrips }) => {
 
     const classes = useStyles();
 
-    if (!roadtrips.length) {
+    if (!roadtrips || !roadtrips.length) {
         return (
             <h3>No Roadtrips Yet!</h3>
         )
@@ -42,7 +42,7 @@ const RoadtripList = ({ roadtrips }) => {
                     spacing={0}
                     direction="column"
                     alignItems="center"
-                    justify="center"
+                    justifyContent="center"
                     style={{ minHeight: '100vh' }}
                 >
                     <Box className='roadtripsList'>
@@ -62,17 +62,12 @@ const RoadtripList = ({ roadtrips }) => {
                                     }
                                 )}
                             </div>
-                            <div className='submitBtn'>
-                                <Grid item xs={12}>
-                                    <Link to="/signup">Sign Up</Link>
-                                </Grid>
-                            </div>
                         </div>
                     </Box>
                 </Grid>
             </>
         </div>
     )
-}
+};
 
 export default RoadtripList;

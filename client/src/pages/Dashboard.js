@@ -13,7 +13,7 @@ import RoadtripList from '../components/RoadtripList';
 import logo from '../assets/images/logo.png';
 
 // queries and mutations
-import { MANY_TRIPS } from '../utils/queries';
+import { GET_ME } from '../utils/queries';
 import { useQuery } from '@apollo/react-hooks';
 
 const useStyles = makeStyles({
@@ -23,8 +23,12 @@ const useStyles = makeStyles({
 });
 
 const Dashboard = () => {
-    const { loading, data } = useQuery(MANY_TRIPS);
-    const roadtrips = data?.roadtrips || [];
+    const { loading, data } = useQuery(GET_ME);
+
+    const user = data?.me || {};
+    const roadtrips = user.roadtrips || [];
+
+    console.log(roadtrips);
 
     const classes = useStyles();
 
@@ -37,18 +41,21 @@ const Dashboard = () => {
                         spacing={0}
                         direction="column"
                         alignItems="center"
-                        justify="center"
+                        justifyContent="center"
                         style={{ minHeight: '100vh' }}
                     >
                         <Box>
                             <div className={classes.root}>
                                 <div>
-                                    <h1>Welcome, User!</h1>
+                                    <h1>Welcome, {user.username}!</h1>
                                     <div>
                                         {loading ? (
                                             <div>Loading...</div>
                                         ) : (
-                                                <RoadtripList roadtrips={roadtrips}/>
+                                            <div>                                                    
+                                                <RoadtripList>
+                                                </RoadtripList>
+                                            </div>
                                             )}
                                     </div>
                                 </div>

@@ -52,7 +52,7 @@ const AddRoadtrip = () => {
                         onChange={handleChange}
                     />
                     <br></br>
-                    <button className='addTripBtn' type='submit'>
+                    <button className='submitBtn' type='submit'>
                         Create
                     </button>
                 </form>
