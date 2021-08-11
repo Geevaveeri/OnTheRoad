@@ -98,7 +98,7 @@ a:link {
   margin-top: 35px;
 }
 
-.loginBtn, .signUpBtn, .addTripBtn, .signupBtn a {
+.submitBtn, .submitBtn a {
   margin-top: 30px;
   background-color: var(--light-orange);
   border-radius: 12px;

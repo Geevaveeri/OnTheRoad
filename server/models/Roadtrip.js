@@ -7,15 +7,15 @@ const roadtripSchema = new Schema({
 	name: {
 		type: String,
 		required: true,
-		trim: true,
+		trim: true
 	},
 	destination: {
 		type: String,
-		trim: true,
+		trim: true
 	},
-	: {
+	playlist: {
 		type: String,
-		trim: true,
+		trim: true
 	},
 	images: [imageSchema],
 	expenses: [expenseSchema],
@@ -24,7 +24,7 @@ const roadtripSchema = new Schema({
 		{
 			type: Schema.Types.ObjectId,
 			ref: "User",
-		},playlist
+		},
 	],
 });
 
