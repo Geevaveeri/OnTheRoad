@@ -1,6 +1,7 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Roadtrip } = require("../models");
+const { User, Roadtrip, Image } = require("../models");
 const { signToken } = require("../utils/auth");
+const cloudinary = require('cloudinary').v2;
 
 const resolvers = {
 	Query: {
@@ -86,7 +87,11 @@ const resolvers = {
 		},
 		addUser: async (parent, { username, _id }, context) => {
 			if (context.user) {
-				const user = await User.findOne({ username });
+				const user = await User.findOneAndUpdate(
+					{ username },
+					{ $addToSet: { roadtrips: _id } },
+					{ new: true }
+				);
 
 				const updatedRoadtrip = await Roadtrip.findOneAndUpdate(
 					{ _id: _id },
@@ -104,13 +109,11 @@ const resolvers = {
 
 			throw new AuthenticationError("You need to be logged in!");
 		},
-		removeUser: async (parent, { username, _id }, context) => {
+		removeUser: async (parent, { userId, _id }, context) => {
 			if (context.user) {
-				const user = await User.findOne({ username });
-
 				const updatedRoadtrip = await Roadtrip.findOneAndUpdate(
 					{ _id: _id },
-					{ $pull: { users: user } },
+					{ $pull: { users: userId } },
 					{ new: true }
 				)
 					.select("-__v")
@@ -126,7 +129,7 @@ const resolvers = {
 		},
 		addRoadtrip: async (parent, args, context) => {
 			if (context.user) {
-				const roadTrip = await Roadtrip.create({
+				const updatedRoadTrip = await Roadtrip.create({
 					...args,
 					users: context.user._id,
 				});
@@ -137,14 +140,44 @@ const resolvers = {
 					{ new: true }
 				);
 
-				return roadTrip;
+				return updatedRoadTrip;
 			}
 			throw new AuthenticationError("You need to be logged in!");
 		},
+    	deleteRoadtrip: async (parent, { _id }, context) => {
+			if (context.user) {
+				const updatedRoadTrip = await Roadtrip.deleteOne({ _id });
+
+				return updatedRoadTrip;
+			}
+		},
+		addImage: async (parent, args, context) => {
+			if (context.user) {
+				const file = args.photo;
+				const ext = args.ext;
+				const getUrl = await cloudinary.uploader.upload(`${file}.${ext}`, (err, result) => {
+					if (err) {
+						console.log('Cloudinary error: ' + err);
+					}
+					return { success: true, result };
+				})
+
+				const image = await Image.create({
+					username: args.username,
+					url: getUrl.result.secure_url,
+					alt: args.alt
+				})
+
+				return image
+			}
+
+			throw new AuthenticationError("Not Logged In");
+
+		}
 	},
 };
 
 module.exports = resolvers;
 
 // Query ( *me, *user, *users, *roadtrip, *roadtrips )
-// Mutation (*login, signup, *createUser, *addUser,*removeUser, *addRoadtrip, deleteRoadtrip, addExpense, updateExpense, deleteExpense, addImage, deleteImage, addStop, deleteStop)
+// Mutation (*login, signup, *createUser, *addUser,*removeUser, *addRoadtrip, *deleteRoadtrip, addExpense, updateExpense, deleteExpense, addImage, deleteImage, addStop, deleteStop)

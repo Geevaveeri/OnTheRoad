@@ -14,6 +14,8 @@ const RoadtripList = ({ user }) => {
             await deleteRoadTrip({
                 variables: { id: event.target.id }
             });
+
+            window.location.reload(false)
         } catch (error) {
             console.error(error);
         }
