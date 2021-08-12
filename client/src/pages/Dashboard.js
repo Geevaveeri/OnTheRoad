@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
+import CloudinaryUploadWidget from "./../utils/CloudinaryUploadWidget";
 
 import RoadtripList from '../components/RoadtripList';
 
@@ -27,35 +28,36 @@ const Dashboard = () => {
                                 {loading ? (
                                     <div>Loading...</div>
                                 ) : (
-                                        <div>
-                                            <RoadtripList
-                                                user={user}>
-                                            </RoadtripList>
-                                        </div>
-                                    )}
+                                    <div>
+                                        <RoadtripList
+                                            user={user}>
+                                        </RoadtripList>
+                                    </div>
+                                )}
                             </div>
                         </div>
                         <div className='submitBtn'>
-                                <Link to="/addTrip">Add New Roadtrip</Link>
+                            <Link to="/addTrip">Add New Roadtrip</Link>
                         </div>
                     </div>
                 </>
             ) : (
-                    <>
+                <>
+                    <div>
                         <div>
                             <div>
-                                <div>
-                                    <img src={logo} alt='site logo'></img>
-                                </div>
-                                <h2>New to On The Road?</h2>
-                                <p>Join and create your first road trip today!</p>
+                                <img src={logo} alt='site logo'></img>
                             </div>
-                            <div className='submitBtn'>
-                                    <Link to="/signup">Sign Up</Link>
-                            </div>
+                            <h2>New to On The Road?</h2>
+                            <p>Join and create your first road trip today!</p>
+                            <CloudinaryUploadWidget />
                         </div>
-                    </>
-                )}
+                        <div className='submitBtn'>
+                            <Link to="/signup">Sign Up</Link>
+                        </div>
+                    </div>
+                </>
+            )}
         </div>
     );
 };
