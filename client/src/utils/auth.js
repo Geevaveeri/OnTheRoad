@@ -38,3 +38,6 @@ class AuthService {
 }
 
 export default new AuthService();
+
+//try hard coding in token to a page thats not signed in to see if the token invalidates itself afer i log out, or if i have to implement
+//measures to invalidate it myself, eg a blacklist database where 

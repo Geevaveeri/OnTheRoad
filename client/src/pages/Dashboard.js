@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 
 import RoadtripList from '../components/RoadtripList';
-
+import DoughnutChart from '../components/Chart';
 import logo from '../assets/images/logo.png';
 
 // queries and mutations
@@ -12,11 +12,13 @@ import { useQuery } from '@apollo/react-hooks';
 
 const Dashboard = () => {
     const { loading, data } = useQuery(GET_ME);
-
+const ref = useRef();
     const user = data?.me || {};
 
     return (
         <div className='dashboard'>
+
+            <DoughnutChart />
 
             {Auth.loggedIn() ? (
                 <>

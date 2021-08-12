@@ -15,6 +15,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import AddRoadtrip from './pages/AddRoadtrip';
 
+
 const client = new ApolloClient({
   request: operation => {
     const token = localStorage.getItem('id_token');
