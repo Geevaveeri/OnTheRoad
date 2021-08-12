@@ -144,7 +144,7 @@ const resolvers = {
 			}
 			throw new AuthenticationError("You need to be logged in!");
 		},
-    	deleteRoadtrip: async (parent, { _id }, context) => {
+		deleteRoadtrip: async (parent, { _id }, context) => {
 			if (context.user) {
 				const updatedRoadTrip = await Roadtrip.deleteOne({ _id });
 
@@ -153,20 +153,7 @@ const resolvers = {
 		},
 		addImage: async (parent, args, context) => {
 			if (context.user) {
-				const file = args.photo;
-				const ext = args.ext;
-				const getUrl = await cloudinary.uploader.upload(`${file}.${ext}`, (err, result) => {
-					if (err) {
-						console.log('Cloudinary error: ' + err);
-					}
-					return { success: true, result };
-				})
-
-				const image = await Image.create({
-					username: args.username,
-					url: getUrl.result.secure_url,
-					alt: args.alt
-				})
+				const image = await Image.create(args)
 
 				return image
 			}

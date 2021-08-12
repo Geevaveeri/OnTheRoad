@@ -1,3 +1,5 @@
+// all of this code came from the help of Roee Ben Ari
+
 import React, { Component } from "react";
 
 class CloudinaryUploadWidget extends Component {
@@ -10,7 +12,7 @@ class CloudinaryUploadWidget extends Component {
             },
             (error, result) => {
                 if (!error && result && result.event === "success") {
-                    console.log("Done! Here is the image info: ", result);
+                    console.log("Done! Here is the image info: ", result.info.secure_url);
                 }
             }
         );
