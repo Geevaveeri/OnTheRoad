@@ -14,6 +14,7 @@ import Dashboard from './pages/Dashboard';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import AddRoadtrip from './pages/AddRoadtrip';
+import SingleRoadtrip from './pages/Roadtrip';
 
 
 const client = new ApolloClient({
@@ -43,6 +44,7 @@ function App() {
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/addTrip" component={AddRoadtrip} />
+              <Route exact path='/roadtrip/:id' component={SingleRoadtrip} />
             </Switch>
           </div>
           <footer>
