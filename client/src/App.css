@@ -26,6 +26,10 @@
   font-size: 14px;
 }
 
+.submitBtn a, .submitBtn a:visited{
+  color: white;
+}
+
 .deleteBtn {
   margin: 20px;  
   background-color: var(--light-green);
@@ -37,10 +41,6 @@
   text-decoration: none;
   display: inline-block;
   font-size: 14px;
-}
-
-.submitBtn a:visited{
-  color: white;
 }
 
 /* header and nav styles */
@@ -127,6 +127,7 @@ a:link {
   padding-right: 10px;
   margin: 1rem;
   width: 300px;
+  box-shadow: 1px 1px .2em var(--light-green);
   
 }
 
