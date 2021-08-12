@@ -64,8 +64,8 @@ export const MANY_USERS = gql`
 `;
 
 export const SINGLE_TRIP = gql`
-	query roadtrip($_id: ID!) {
-		roadtrip(_id: $_id) {
+	query roadtrip($id: ID!) {
+		roadtrip(_id: $id) {
 			_id
 			name
 			destination
