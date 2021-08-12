@@ -13,6 +13,18 @@
 
 /* buttons */
 
+.smallBtn {
+  margin: 20px;  
+  border-radius: 6px;
+  border: none;
+  color: var(--dark-green);
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+
 .submitBtn {
   margin: 20px;  
   background-color: var(--light-orange);
@@ -138,7 +150,11 @@ a:link {
 /* single roadtrip styles */
 
 .roadtripCard {
-  border: 2px solid black;
+  margin: 20px;
+  padding: 20px;
+  box-shadow: 1px 1px .2em var(--light-green);
+  border-radius: 12px;
+  border: 2px solid var(--light-green);
 }
 
 /* footer styles */

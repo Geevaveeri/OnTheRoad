@@ -10,6 +10,8 @@ import logo from '../assets/images/logo.png';
 
 import Users from '../components/Users';
 import Stops from '../components/Stops';
+import Playlist from '../components/Playlist';
+import Gallery from '../components/Gallery';
 
 const SingleRoadtrip = params => {
     const { id: roadtripId } = useParams();
@@ -27,31 +29,29 @@ const SingleRoadtrip = params => {
 
     return (
         <div className='dashboard'>
-            <Grid
-                container
-                direction="row"
-                justifyContent="space-around"
-                alignItems="flex-start"
-            >
-                <div>
+            <h1>{roadtrip.name}</h1>
 
-                    <Grid item xs={12} s={6}><h2>{roadtrip.name}</h2></Grid>
-                    <h5>Playlist: {roadtrip.playlist}</h5>
-                    {/* users */}
-                    <Users
-                        roadtripId={roadtrip._id}>
-                    </Users>
-                    {/* stops */}
-                    <Stops
-                        roadtripId={roadtrip._id}>
-                    </Stops>
-                    {/* expenses component */}
-                    {/* gallery component */}
-                    <div>
-                        <img src={logo} alt='site logo'></img>
-                    </div>
-                </div>
-            </Grid>
+            <Playlist
+                roadtripId={roadtrip._id}>
+            </Playlist>
+
+            <Users
+                roadtripId={roadtrip._id}>
+            </Users>
+
+            <Stops
+                roadtripId={roadtrip._id}>
+            </Stops>
+
+            <Gallery
+                roadtripId={roadtrip._id}>
+            </Gallery>
+
+            {/* expenses component */}
+            {/* gallery component */}
+            <div>
+                <img src={logo} alt='site logo'></img>
+            </div>
 
         </div>
     );

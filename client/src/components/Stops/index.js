@@ -4,7 +4,10 @@ import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { SINGLE_TRIP } from '../../utils/queries';
 
-import { Grid } from '@material-ui/core';
+// material imports
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 const Stops = params => {
     const { id: roadtripId } = useParams();
@@ -13,42 +16,51 @@ const Stops = params => {
         variables: { id: roadtripId }
     });
 
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            flexGrow: 1,
+        },
+        paper: {
+            padding: theme.spacing(2),
+            textAlign: 'center',
+            color: theme.palette.text.secondary,
+        },
+    }));
+
+    const classes = useStyles();
+
 
     if (loading) {
         return <div>Loading...</div>;
     }
 
-    const stops = data.roadtrip.stops || {};
+    const stops = data.roadtrip.stops || [];
 
     return (
-        <div>
-            <Grid
-                container
-                direction="row"
-                justifyContent="space-around"
-                alignItems="flex-start"
-            >
-                <div>
-                    <div className='roadtripCard stopList'>
-                        <h4>Stops</h4>
+
+        <div className='roadtripCard'>
+            <h4>Stops</h4>
+            <div className={classes.root}>
+                <Grid
+                    container
+                    justifyContent="center"
+                    spacing={3}>
+                    <Grid item xs={12} className='userList'>
                         {stops && stops.map(stop => (
-                            <div className='stopItem' key={stop._id}>
-                                <p>{stop.lat}</p>
-                                <p>{stop.lon}</p>
-                                <p>{stop.name}</p>
-                                <p>{stop.address}</p>
-                                <button className='deleteBtn'>Remove Stop
-                                </button>
+                            <div className='userItem' key={stop._id}>
+                                <Grid item xs={6} sm={3}>
+                                    <Paper className={classes.paper}>{stop.username}
+                                        <button className='smallBtn'>Remove Stop</button>
+                                    </Paper>
+                                </Grid>
                             </div>
                         ))}
                         <button className='submitBtn'>
-                            <Link to={`/roadtrip/:id/addFriend`}>Add Stop</Link>
+                            <Link to={`/roadtrip/:id/addStop`}>Add Stop</Link>
                         </button>
-                    </div>
-
-                </div>
-            </Grid>
-
+                    </Grid>
+                </Grid>
+            </div>
         </div>
     );
 };
