@@ -8,6 +8,9 @@ import { Grid } from '@material-ui/core';
 
 import logo from '../assets/images/logo.png';
 
+import Users from '../components/Users';
+import Stops from '../components/Stops';
+
 const SingleRoadtrip = params => {
     const { id: roadtripId } = useParams();
 
@@ -31,53 +34,22 @@ const SingleRoadtrip = params => {
                 alignItems="flex-start"
             >
                 <div>
+
+                    <Grid item xs={12} s={6}><h2>{roadtrip.name}</h2></Grid>
+                    <h5>Playlist: {roadtrip.playlist}</h5>
+                    {/* users */}
+                    <Users
+                        roadtripId={roadtrip._id}>
+                    </Users>
+                    {/* stops */}
+                    <Stops
+                        roadtripId={roadtrip._id}>
+                    </Stops>
+                    {/* expenses component */}
+                    {/* gallery component */}
                     <div>
                         <img src={logo} alt='site logo'></img>
                     </div>
-                    <Grid item xs={12} s={6}><h2>{roadtrip.name}</h2></Grid>
-                    <div className='userList'>
-                        <h4>Users</h4>
-                        {roadtrip.users && roadtrip.users.map(user => (
-                            <div className='userItem' key={user._id}>
-                                <p>{user.username}</p>
-                                <button className='deleteBtn'>Remove User
-                                </button>
-                            </div>
-                        ))}
-                        <button className='submitBtn'>
-                            <Link to={`/roadtrip/:id/addFriend`}>Add User</Link>
-                        </button>
-                    </div>
-                    <div className='stopList'>
-                        {roadtrip.stops.map(stop => (
-                            <div className='stopItem' key={stop._id}>
-                                <p>{stop.lat}</p>
-                                <p>{stop.lon}</p>
-                                <p>{stop.name}</p>
-                                <p>{stop.address}</p>
-                                <button className='deleteBtn'>Delete Stop
-                                </button>
-                            </div>
-
-                        ))}
-                        <button className='submitBtn'>
-                            <Link to={`/roadtrip/:id/addStop`}>Add Stop</Link>
-                        </button>
-                    </div>
-                    <div className='expensesList'>
-                        {roadtrip.expenses.map(user => (
-                            <div className='userItem' key={user._id}>
-                                <p>{user.username}</p>
-                                <button className='deleteBtn'>Delete Expense
-                                </button>
-                            </div>
-
-                        ))}
-                        <button className='submitBtn'>
-                            <Link to={`/roadtrip/:id/addFriend`}>Add Expense</Link>
-                        </button>
-                    </div>
-
                 </div>
             </Grid>
 

@@ -135,6 +135,12 @@ a:link {
   font-weight: lighter;
 }
 
+/* single roadtrip styles */
+
+.roadtripCard {
+  border: 2px solid black;
+}
+
 /* footer styles */
 
 .footer {
