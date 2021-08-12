@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
+
 import { useMutation } from '@apollo/react-hooks';
 import { ADD_TRIP } from '../utils/mutations';
 import { Input } from '@material-ui/core';
 
 const AddRoadtrip = () => {
-    const [formState, setFormState] = useState({ name: '', destination: ''});
+    const [formState, setFormState] = useState({ name: '' });
 
-    const [addTrip, { error }] = useMutation(ADD_TRIP);
+    const [addRoadtrip, { error }] = useMutation(ADD_TRIP);
 
     const handleChange = event => {
         const { name, value } = event.target;
@@ -21,11 +22,12 @@ const AddRoadtrip = () => {
         event.preventDefault();
 
         try {
-            const { data } = await addTrip({
+            const { data } = await addRoadtrip({
                 variables: { ...formState }
             });
 
             console.log(data);
+            window.location.replace('/')
         } catch (error) {
             console.error(error);
         }
@@ -41,15 +43,6 @@ const AddRoadtrip = () => {
                         type='name'
                         id='name'
                         value={formState.name}
-                        onChange={handleChange}
-                    />
-                    <br></br>
-                    <Input
-                        placeholder='Destination'
-                        name='destination'
-                        type='destination'
-                        id='destination'
-                        value={formState.destination}
                         onChange={handleChange}
                     />
                     <br></br>

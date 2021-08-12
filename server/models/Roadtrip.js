@@ -12,12 +12,10 @@ const roadtripSchema = new Schema(
         },
         start: {
             type: String,
-            required: true,
             trim: true
         },
         destination: {
             type: String,
-            required: true,
             trim: true
         },
         playlist: {
