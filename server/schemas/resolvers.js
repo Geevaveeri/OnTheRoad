@@ -129,26 +129,26 @@ const resolvers = {
 		},
 		addRoadtrip: async (parent, args, context) => {
 			if (context.user) {
-				const updatedRoadTrip = await Roadtrip.create({
+				const updatedRoadtrip = await Roadtrip.create({
 					...args,
 					users: context.user._id,
 				});
 
 				await User.findOneAndUpdate(
 					{ _id: context.user._id },
-					{ $push: { roadtrips: roadTrip._id } },
+					{ $push: { roadtrips: updatedRoadtrip._id } },
 					{ new: true }
 				);
 
-				return updatedRoadTrip;
+				return updatedRoadtrip;
 			}
 			throw new AuthenticationError("You need to be logged in!");
 		},
     	deleteRoadtrip: async (parent, { _id }, context) => {
 			if (context.user) {
-				const updatedRoadTrip = await Roadtrip.deleteOne({ _id });
+				const updatedRoadtrip = await Roadtrip.deleteOne({ _id });
 
-				return updatedRoadTrip;
+				return updatedRoadtrip;
 			}
 		},
 		addImage: async (parent, args, context) => {
