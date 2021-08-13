@@ -227,17 +227,17 @@ const resolvers = {
 		addImage: async (parent, { _id, ...args }, context) => {
 			if (context.user) {
 				console.log(args);
-				// const file = args.photo;
-				// const ext = args.ext;
-				// const getUrl = await cloudinary.uploader.upload(
-				// 	`${file}.${ext}`,
-				// 	(err, result) => {
-				// 		if (err) {
-				// 			console.log("Cloudinary error: " + err);
-				// 		}
-				// 		return { success: true, result };
-				// 	}
-				// );
+				const file = args.photo;
+				const ext = args.ext;
+				const getUrl = await cloudinary.uploader.upload(
+					`${file}.${ext}`,
+					(err, result) => {
+						if (err) {
+							console.log("Cloudinary error: " + err);
+						}
+						return { success: true, result };
+					}
+				);
 
 				const image = await Roadtrip.findOneAndUpdate(
 					{ _id: _id },
