@@ -37,7 +37,7 @@ const resolvers = {
 				return userdata;
 			}
 		},
-		roadtrip: async (parant, { _id }, context) => {
+		roadtrip: async (parent, { _id }, context) => {
 			if (context.user) {
 				const roadtripData = await Roadtrip.findOne({ _id })
 					.select("-__v")
@@ -130,7 +130,7 @@ const resolvers = {
 		},
 		addRoadtrip: async (parent, args, context) => {
 			if (context.user) {
-				const updatedRoadTrip = await Roadtrip.create({
+				const updatedRoadtrip = await Roadtrip.create({
 					...args,
 					users: context.user._id,
 				});
@@ -141,15 +141,15 @@ const resolvers = {
 					{ new: true }
 				);
 
-				return updatedRoadTrip;
+				return updatedRoadtrip;
 			}
 			throw new AuthenticationError("You need to be logged in!");
 		},
 		deleteRoadtrip: async (parent, { _id }, context) => {
 			if (context.user) {
-				const updatedRoadTrip = await Roadtrip.deleteOne({ _id });
+				const updatedRoadtrip = await Roadtrip.deleteOne({ _id });
 
-				return updatedRoadTrip;
+				return updatedRoadtrip;
 			}
 		},
 		addExpense: async (parent, { _id, ...args }, context) => {

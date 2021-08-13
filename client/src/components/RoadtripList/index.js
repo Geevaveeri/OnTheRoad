@@ -1,47 +1,57 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-// imports from Material UI
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import { useMutation } from '@apollo/react-hooks';
+import { DELETE_TRIP } from '../../utils/mutations';
+import { Link } from 'react-router-dom'
 
-const useStyles = makeStyles({
-    root: {
-        minWidth: 300,
-    },
-    bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)',
-    },
-    title: {
-        fontSize: 14,
-    },
-    pos: {
-        marginBottom: 12,
-    },
-});
+const RoadtripList = ({ user }) => {
+    const roadtrips = user.roadtrips;
+    console.log(roadtrips);
 
-const RoadtripList = ({ roadtrips }) => {
-    if (!roadtrips.length) {
+    const [deleteRoadTrip] = useMutation(DELETE_TRIP);
+
+    const handleClick = async (event) => {
+        try {
+            await deleteRoadTrip({
+                variables: { id: event.target.id }
+            });
+
+            window.location.reload(false)
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    if (!roadtrips || !roadtrips.length) {
         return (
             <h3>No Roadtrips Yet!</h3>
         )
     }
 
     return (
-        <div>
-            <h3>My Roadtrips</h3>
-            {roadtrips &&
-                roadtrips.map(roadtrip => {
+        <div className='roadtripList'>
+            <>
+                <section>
+                    <div>
+                        <div>
+                            <h3>
+                                My Roadtrips
+                                </h3>
+                            {roadtrips.map(trip => (
+                                <div className='roadtripItem' key={trip._id}>
+                                    <Link to={`/roadtrip/${trip._id}`}>
+                                        <h4>{trip.name}</h4></Link>
+                                        <p>{trip.users}</p>
+                                        <button id={trip._id} onClick={handleClick} className="deleteBtn">Delete</button>
+                                </div>
 
-                })}
-        </div>
+                            ))}
+                                </div>
+                    </div>
+                </section>
+            </>
+            </div>
     )
-}
+};
 
 export default RoadtripList;

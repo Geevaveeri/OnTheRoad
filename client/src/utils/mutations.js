@@ -92,7 +92,7 @@ export const REMOVE_USER = gql`
 `;
 
 export const ADD_TRIP = gql`
-	mutation addRoadTrip($name: String!) {
+	mutation addRoadtrip($name: String!) {
 		addRoadtrip(name: $name) {
 			_id
 			name
@@ -125,8 +125,8 @@ export const ADD_TRIP = gql`
 `;
 
 export const DELETE_TRIP = gql`
-	mutation deleteRoadtrip($_id: ID!) {
-		deleteRoadtrip(_id: $_id) {
+	mutation deleteRoadtrip($id: ID!) {
+		deleteRoadtrip(_id: $id) {
 			_id
 			name
 			destination

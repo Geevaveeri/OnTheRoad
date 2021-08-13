@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
-const Users = params => {
+const Stops = params => {
     const { id: roadtripId } = useParams();
 
     const { loading, data } = useQuery(SINGLE_TRIP, {
@@ -34,29 +34,29 @@ const Users = params => {
         return <div>Loading...</div>;
     }
 
-    const users = data.roadtrip.users || [];
+    const stops = data.roadtrip.stops || [];
 
     return (
 
         <div className='roadtripCard'>
-            <h4>Users</h4>
+            <h4>Stops</h4>
             <div className={classes.root}>
                 <Grid
                     container
                     justifyContent="center"
                     spacing={3}>
                     <Grid item xs={12} className='userList'>
-                        {users && users.map(user => (
-                            <div className='userItem' key={user._id}>
+                        {stops && stops.map(stop => (
+                            <div className='userItem' key={stop._id}>
                                 <Grid item xs={6} sm={3}>
-                                    <Paper className={classes.paper}>{user.username}
-                                        <button className='smallBtn'>Remove User</button>
+                                    <Paper className={classes.paper}>{stop.username}
+                                        <button className='smallBtn'>Remove Stop</button>
                                     </Paper>
                                 </Grid>
                             </div>
                         ))}
                         <button className='submitBtn'>
-                            <Link to={`/roadtrip/:id/addUser`}>Add User</Link>
+                            <Link to={`/roadtrip/:id/addStop`}>Add Stop</Link>
                         </button>
                     </Grid>
                 </Grid>
@@ -65,4 +65,4 @@ const Users = params => {
     );
 };
 
-export default Users;
+export default Stops;
