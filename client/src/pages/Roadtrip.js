@@ -11,6 +11,7 @@ import logo from '../assets/images/logo.png';
 import Users from '../components/Users';
 import Stops from '../components/Stops';
 import Playlist from '../components/Playlist';
+import Expenses from '../components/Expenses';
 import Gallery from '../components/Gallery';
 
 const SingleRoadtrip = params => {
@@ -47,8 +48,9 @@ const SingleRoadtrip = params => {
                 roadtripId={roadtrip._id}>
             </Gallery>
 
-            {/* expenses component */}
-            {/* gallery component */}
+            <Expenses
+                roadtripId={roadtrip._id}>
+            </Expenses>
             <div>
                 <img src={logo} alt='site logo'></img>
             </div>

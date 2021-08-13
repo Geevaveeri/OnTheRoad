@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 
 import RoadtripList from '../components/RoadtripList';
-import DoughnutChart from '../components/Chart';
 import logo from '../assets/images/logo.png';
 
 // queries and mutations
@@ -18,7 +17,6 @@ const ref = useRef();
     return (
         <div className='dashboard'>
 
-            <DoughnutChart />
 
             {Auth.loggedIn() ? (
                 <>
