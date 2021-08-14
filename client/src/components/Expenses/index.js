@@ -1,5 +1,6 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import DoughnutChart from '../Chart';
+import { useParams } from 'react-router-dom';
 
 import { useQuery, useMutation } from '@apollo/client';
 import { SINGLE_TRIP } from '../../utils/queries';
@@ -11,7 +12,13 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
 
-const Expenses = () => {
+const Expenses = (params) => {
+
+    // const { id: roadtripId } = useParams();
+
+    // const { loading, data } = useQuery(SINGLE_TRIP, {
+    //     variables: { id: roadtripId }
+    // });
 
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -26,11 +33,17 @@ const Expenses = () => {
 
     const classes = useStyles();
 
-    const ref = useRef();
+    // if (loading) {
+    //     return <div>Loading...</div>;
+    // }
+
+    // const expenses = data.roadtrip.expenses || [];
+
+    //console.log(expenses);
 
     return(
     <div className='roadtripCard'>
-        <DoughnutChart/>
+        <DoughnutChart />
     </div>
     );
 }

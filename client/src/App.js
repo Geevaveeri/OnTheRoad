@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
+
+import UserContext from './utils/userContext/userContext';
+import setUserContext from './utils/setUserContext/setUserContext';
 
 import './App.css';
 
@@ -31,8 +34,28 @@ const client = new ApolloClient({
 });
 
 function App() {
+
+  const [user, setUser] = useState({
+    _id: '',
+    username: '',
+    email: '',
+    roadtrips: [{
+        _id: '',
+        name: '',
+        destination: ''
+    }],
+    expenses: [{
+        _id: '',
+        cost: '',
+        category: '',
+        comment: ''
+    }]
+  });
+
   return (
     <ApolloProvider client={client}>
+      <UserContext.Provider value={user}>
+      <setUserContext.Provider value={setUser}>
       <Router>
         <div className="App">
           <header>
@@ -52,6 +75,8 @@ function App() {
           </footer>
         </div>
       </Router>
+      </setUserContext.Provider>
+      </UserContext.Provider>
     </ApolloProvider>
   );
 }

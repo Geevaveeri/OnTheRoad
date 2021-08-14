@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { LOGIN_USER } from '../utils/mutations'
 import { Input } from '@material-ui/core';
+
+import setUserContext from '../utils/setUserContext/setUserContext';
 
 import logo from '../assets/images/logo.png';
 
@@ -10,6 +12,8 @@ import Auth from '../utils/auth';
 const Login = props => {
     const [formState, setFormState] = useState({ email: '', password: '' });
     const [login, { error }] = useMutation(LOGIN_USER);
+
+    const setLoggedInUser = useContext(setUserContext);
 
     const handleChange = event => {
         const { name, value } = event.target;
@@ -29,6 +33,8 @@ const Login = props => {
             });
 
             Auth.login(data.login.token);
+            console.log(data);
+            setLoggedInUser(data.login[0]);
         } catch (error) {
             console.error(error);
         }

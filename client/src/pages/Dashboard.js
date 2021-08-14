@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 
@@ -11,7 +11,7 @@ import { useQuery } from '@apollo/react-hooks';
 
 const Dashboard = () => {
     const { loading, data } = useQuery(GET_ME);
-const ref = useRef();
+
     const user = data?.me || {};
 
     return (
