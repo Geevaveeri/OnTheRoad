@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
+import TextField from '@material-ui/core/TextField';
 
 
 const Expenses = params => {
@@ -56,11 +57,8 @@ const Expenses = params => {
     }
 
     const body = (
-        <div style={modalStyle} className={classes.paper}>
-        <h2 id="simple-modal-title">Text in a modal</h2>
-        <p id="simple-modal-description">
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-        </p>
+        <div>
+        <TextField id="standard-basic" label="Standard" />
         
         </div>
     );
