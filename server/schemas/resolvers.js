@@ -226,26 +226,13 @@ const resolvers = {
 		},
 		addImage: async (parent, { _id, ...args }, context) => {
 			if (context.user) {
-				console.log(args);
-				const file = args.photo;
-				const ext = args.ext;
-				const getUrl = await cloudinary.uploader.upload(
-					`${file}.${ext}`,
-					(err, result) => {
-						if (err) {
-							console.log("Cloudinary error: " + err);
-						}
-						return { success: true, result };
-					}
-				);
-
 				const image = await Roadtrip.findOneAndUpdate(
 					{ _id: _id },
 					{
 						$push: {
 							images: {
 								username: context.user.username,
-								url: getUrl.result.secure_url,
+								url: args.url,
 								alt: args.alt,
 							},
 						},
@@ -257,7 +244,10 @@ const resolvers = {
 					.populate("expenses")
 					.populate("stops")
 					.populate("users");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 443560c41d28b42bd489888cea8c01f859efc9db
 				return image;
 			}
 
