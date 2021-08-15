@@ -244,10 +244,6 @@ const resolvers = {
 					.populate("expenses")
 					.populate("stops")
 					.populate("users");
-<<<<<<< HEAD
-
-=======
->>>>>>> 443560c41d28b42bd489888cea8c01f859efc9db
 				return image;
 			}
 
