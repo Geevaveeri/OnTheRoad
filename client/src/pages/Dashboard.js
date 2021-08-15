@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
-import CloudinaryUploadWidget from "./../utils/CloudinaryUploadWidget";
 
 import RoadtripList from '../components/RoadtripList';
 
@@ -50,7 +49,6 @@ const Dashboard = () => {
                             </div>
                             <h2>New to On The Road?</h2>
                             <p>Join and create your first road trip today!</p>
-                            <CloudinaryUploadWidget />
                         </div>
                         <div className='submitBtn'>
                             <Link to="/signup">Sign Up</Link>
