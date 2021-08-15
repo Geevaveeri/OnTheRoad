@@ -137,7 +137,7 @@ const resolvers = {
 
 				await User.findOneAndUpdate(
 					{ _id: context.user._id },
-					{ $push: { roadtrips: updatedRoadTrip._id } },
+					{ $push: { roadtrips: updatedRoadtrip._id } },
 					{ new: true }
 				);
 
@@ -154,7 +154,7 @@ const resolvers = {
 		},
 		addExpense: async (parent, { _id, ...args }, context) => {
 			if (context.user) {
-				const updatedRoadTrip = await Roadtrip.findOneAndUpdate(
+				const updatedRoadtrip = await Roadtrip.findOneAndUpdate(
 					{ _id: _id },
 					{ $push: { expenses: args } },
 					{ new: true }
@@ -167,11 +167,11 @@ const resolvers = {
 
 				await User.findOneAndUpdate(
 					{ _id: context.user._id },
-					{ $push: { expenses: updatedRoadTrip.expenses } },
+					{ $push: { expenses: updatedRoadtrip.expenses } },
 					{ new: true }
 				);
 
-				return updatedRoadTrip;
+				return updatedRoadtrip;
 			}
 			throw new AuthenticationError("You need to be logged in!");
 		},
