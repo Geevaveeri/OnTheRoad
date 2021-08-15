@@ -55,6 +55,15 @@ const Expenses = params => {
         return <div>Loading...</div>;
     }
 
+    const body = (
+        <div style={modalStyle} className={classes.paper}>
+        <h2 id="simple-modal-title">Text in a modal</h2>
+        <p id="simple-modal-description">
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+        </p>
+        
+        </div>
+    );
 
     return(
     <div className='roadtripCard'>
@@ -72,10 +81,18 @@ const Expenses = params => {
                 </div>
             ))}
             <button 
-                className='submitBtn'
-                >
+                type="button"
+                onClick={handleOpen}>                
                 Add Expense
             </button>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+            >
+                {body}
+            </Modal>
         </Grid> 
     </div>
     );
