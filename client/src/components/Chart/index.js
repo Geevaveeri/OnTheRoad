@@ -1,16 +1,16 @@
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2'
 
-const DoughnutChart = () => {
+const DoughnutChart = ({ data, labels }) => {
     return (
         <div>
             <Doughnut 
                 data={{
-                    labels: ['Sharni', 'Kota', 'Casey', 'Michelle'],
+                    labels,
                     datasets: [
                         {
                           label: '$$ spent',
-                          data: [12, 19, 3, 5],
+                          data,
                           backgroundColor: [
                             'rgba(255, 99, 132)',
                             'rgba(54, 162, 235)',

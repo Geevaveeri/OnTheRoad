@@ -7,7 +7,7 @@ import logo from '../assets/images/logo.png';
 
 // queries and mutations
 import { GET_ME } from '../utils/queries';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
 const Dashboard = () => {
     const { loading, data } = useQuery(GET_ME);
