@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import { CREATE_USER } from '../utils/mutations';
 import { Input } from '@material-ui/core';
 

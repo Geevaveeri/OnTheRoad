@@ -284,12 +284,11 @@ export const DELETE_EXPENSE = gql`
 
 export const ADD_IMAGE = gql`
 	mutation addImage(
-		$username: String!
 		$url: String!
 		$alt: String!
 		$_id: ID!
 	) {
-		addImage(username: $username, url: $url, alt: $alt, _id: $_id) {
+		addImage(url: $url, alt: $alt, _id: $_id) {
 			_id
 			name
 			destination

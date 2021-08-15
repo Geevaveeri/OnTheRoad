@@ -1,22 +1,22 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 
 import RoadtripList from '../components/RoadtripList';
-
 import logo from '../assets/images/logo.png';
 
 // queries and mutations
 import { GET_ME } from '../utils/queries';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
 const Dashboard = () => {
     const { loading, data } = useQuery(GET_ME);
-
+const ref = useRef();
     const user = data?.me || {};
 
     return (
         <div className='dashboard'>
+
 
             {Auth.loggedIn() ? (
                 <>
