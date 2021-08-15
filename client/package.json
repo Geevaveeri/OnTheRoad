@@ -6,6 +6,7 @@
   "dependencies": {
     "@apollo/client": "^3.4.5",
     "@apollo/react-hooks": "^4.0.0",
+    "@app-masters/react-cloudinary-uploader": "^0.1.42",
     "@material-ui/core": "^4.12.3",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
