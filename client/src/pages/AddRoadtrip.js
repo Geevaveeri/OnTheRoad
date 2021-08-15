@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import { ADD_TRIP } from '../utils/mutations';
 import { Input } from '@material-ui/core';
 

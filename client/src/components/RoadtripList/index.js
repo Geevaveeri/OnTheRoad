@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import { DELETE_TRIP } from '../../utils/mutations';
 import { Link } from 'react-router-dom'
 

@@ -45,7 +45,6 @@ const resolvers = {
 					.populate("expenses")
 					.populate("stops")
 					.populate("users");
-
 				return roadtripData;
 			}
 		},
