@@ -1,17 +1,10 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
-const cloudinary = require('cloudinary').v2;
 
 const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./utils/auth');
 const db = require('./config/connection');
-
-cloudinary.config({
-  cloud_name: process.env.CC_NAME,
-  api_key: process.env.CC_KEY,
-  api_secret: process.env.CC_SECRET
-});
 
 const PORT = process.env.PORT || 3001;
 const app = express();

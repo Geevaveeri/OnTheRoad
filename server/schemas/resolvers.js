@@ -1,7 +1,8 @@
+const mongoose = require("mongoose");
 const { AuthenticationError } = require("apollo-server-express");
 const { User, Roadtrip, Image } = require("../models");
 const { signToken } = require("../utils/auth");
-const cloudinary = require('cloudinary').v2;
+const cloudinary = require("cloudinary").v2;
 
 const resolvers = {
 	Query: {
@@ -10,7 +11,7 @@ const resolvers = {
 				const userData = await User.findOne({ _id: context.user._id })
 					.select("-__v -password")
 					.populate("roadtrips")
-					.populate(" expenses");
+					.populate("expenses");
 
 				return userData;
 			}
@@ -21,7 +22,7 @@ const resolvers = {
 				const userData = await User.findOne({ username })
 					.select("-__v -password")
 					.populate("roadtrips")
-					.populate(" expenses");
+					.populate("expenses");
 
 				return userData;
 			}
@@ -31,7 +32,7 @@ const resolvers = {
 				const userdata = await User.find()
 					.select("-__v -password")
 					.populate("roadtrips")
-					.populate(" expenses");
+					.populate("expenses");
 
 				return userdata;
 			}
@@ -135,7 +136,7 @@ const resolvers = {
 
 				await User.findOneAndUpdate(
 					{ _id: context.user._id },
-					{ $push: { roadtrips: updatedRoadtrip._id } },
+					{ $push: { roadtrips: updatedRoadTrip._id } },
 					{ new: true }
 				);
 
@@ -143,40 +144,168 @@ const resolvers = {
 			}
 			throw new AuthenticationError("You need to be logged in!");
 		},
-    	deleteRoadtrip: async (parent, { _id }, context) => {
+		deleteRoadtrip: async (parent, { _id }, context) => {
 			if (context.user) {
 				const updatedRoadtrip = await Roadtrip.deleteOne({ _id });
 
 				return updatedRoadtrip;
 			}
 		},
-		addImage: async (parent, args, context) => {
+		addExpense: async (parent, { _id, ...args }, context) => {
 			if (context.user) {
-				const file = args.photo;
-				const ext = args.ext;
-				const getUrl = await cloudinary.uploader.upload(`${file}.${ext}`, (err, result) => {
-					if (err) {
-						console.log('Cloudinary error: ' + err);
-					}
-					return { success: true, result };
-				})
+				const updatedRoadTrip = await Roadtrip.findOneAndUpdate(
+					{ _id: _id },
+					{ $push: { expenses: args } },
+					{ new: true }
+				)
+					.select("-__v")
+					.populate("images")
+					.populate("expenses")
+					.populate("stops")
+					.populate("users");
 
-				const image = await Image.create({
-					username: args.username,
-					url: getUrl.result.secure_url,
-					alt: args.alt
-				})
+				await User.findOneAndUpdate(
+					{ _id: context.user._id },
+					{ $push: { expenses: updatedRoadTrip.expenses } },
+					{ new: true }
+				);
 
-				return image
+				return updatedRoadTrip;
+			}
+			throw new AuthenticationError("You need to be logged in!");
+		},
+		updateExpense: async (parent, { _id, expenseId, ...args }, context) => {
+			if (context.user) {
+				const updatedExpense = await Roadtrip.findOneAndUpdate(
+					{ _id: _id, "expenses._id": expenseId },
+					{ $set: { "expenses.$": args } },
+					{ new: true }
+				)
+					.select("-__v")
+					.populate("images")
+					.populate("expenses")
+					.populate("stops")
+					.populate("users");
+				console.log("-------------------------------------------");
+				console.log(updatedExpense);
+				await User.findOneAndUpdate(
+					{ _id: context.user._id, "expenses._id": expenseId },
+					{ $set: { "expenses.$": args } },
+					{ new: true }
+				);
+
+				return updatedExpense;
 			}
 
-			throw new AuthenticationError("Not Logged In");
+			throw new AuthenticationError("You need to be logged in!");
+		},
+		deleteExpense: async (parent, { _id, expenseId, ...args }, context) => {
+			if (context.user) {
+				const updatedExpense = await Roadtrip.findOneAndUpdate(
+					{ _id },
+					{ $pull: { expenses: { _id: expenseId } } },
+					{ new: true }
+				)
+					.select("-__v")
+					.populate("images")
+					.populate("expenses")
+					.populate("stops")
+					.populate("users");
 
-		}
+				await User.findOneAndUpdate(
+					{ _id: context.user._id },
+					{ $pull: { expenses: { _id: expenseId } } },
+					{ new: true }
+				);
+
+				return updatedExpense;
+			}
+
+			throw new AuthenticationError("You need to be logged in!");
+		},
+		addImage: async (parent, { _id, ...args }, context) => {
+			if (context.user) {
+				const image = await Roadtrip.findOneAndUpdate(
+					{ _id: _id },
+					{
+						$push: {
+							images: {
+								username: context.user.username,
+								url: args.url,
+								alt: args.alt,
+							},
+						},
+					},
+					{ new: true }
+				)
+					.select("-__v")
+					.populate("images")
+					.populate("expenses")
+					.populate("stops")
+					.populate("users");
+				return image;
+			}
+
+			throw new AuthenticationError("You need to be logged in!");
+		},
+		deleteImage: async (parent, { _id, imageId, ...args }, context) => {
+			if (context.user) {
+				const updatedImage = await Roadtrip.findOneAndUpdate(
+					{ _id },
+					{ $pull: { images: { _id: imageId } } },
+					{ new: true }
+				)
+					.select("-__v")
+					.populate("images")
+					.populate("expenses")
+					.populate("stops")
+					.populate("users");
+
+				return updatedImage;
+			}
+
+			throw new AuthenticationError("You need to be logged in!");
+		},
+		addStop: async (parent, args, context) => {
+			if (context.user) {
+				const updatedStop = await Roadtrip.findOneAndUpdate(
+					{ _id: args._id },
+					{ $push: { stops: args } },
+					{ new: true }
+				)
+					.select("-__v")
+					.populate("images")
+					.populate("expenses")
+					.populate("stops")
+					.populate("users");
+
+				return updatedStop;
+			}
+
+			throw new AuthenticationError("You need to be logged in!");
+		},
+		deleteStop: async (parent, args, context) => {
+			if (context.user) {
+				const updatedStop = await Roadtrip.findOneAndUpdate(
+					{ _id: args._id },
+					{ $pull: { stops: { _id: args.stopId } } },
+					{ new: true }
+				)
+					.select("-__v")
+					.populate("images")
+					.populate("expenses")
+					.populate("stops")
+					.populate("users");
+
+				return updatedStop;
+			}
+
+			throw new AuthenticationError("You need to be logged in!");
+		},
 	},
 };
 
 module.exports = resolvers;
 
 // Query ( *me, *user, *users, *roadtrip, *roadtrips )
-// Mutation (*login, signup, *createUser, *addUser,*removeUser, *addRoadtrip, *deleteRoadtrip, addExpense, updateExpense, deleteExpense, addImage, deleteImage, addStop, deleteStop)
+// Mutation (*login, signup, *createUser, *addUser,*removeUser, *addRoadtrip, *deleteRoadtrip, *addExpense, updateExpense, *deleteExpense, *addImage, *deleteImage, *addStop, 8deleteStop)
