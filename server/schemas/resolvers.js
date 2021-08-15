@@ -226,6 +226,7 @@ const resolvers = {
 		},
 		addImage: async (parent, { _id, ...args }, context) => {
 			if (context.user) {
+				console.log(args);
 				const file = args.photo;
 				const ext = args.ext;
 				const getUrl = await cloudinary.uploader.upload(
