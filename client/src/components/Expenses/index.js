@@ -4,7 +4,7 @@ import DoughnutChart from '../Chart';
 
 import { useQuery, useMutation } from '@apollo/client';
 import { SINGLE_TRIP } from '../../utils/queries';
-import { ADD_EXPENSE, DELETE_EXPENSE } from '../../utils/mutations';
+import { ADD_EXPENSE, DELETE_EXPENSE, UPDATE_EXPENSE } from '../../utils/mutations';
 
 // material imports
 import { makeStyles } from '@material-ui/core/styles';
@@ -29,6 +29,7 @@ const Expenses = params => {
     });
     const [deleteExpense] = useMutation(DELETE_EXPENSE);
     const [addExpense] = useMutation(ADD_EXPENSE);
+    const [updateExpense] = useMutation(UPDATE_EXPENSE);
 
     // users
 
@@ -42,11 +43,17 @@ const Expenses = params => {
         return oneCost;
     })
 
+    // state for expenses
+
+    const [formState, setFormState] = useState({ category: '', cost: '', comment: '' });
+    const [expenseState, setExpenseState] = useState('');
+
     // modal open and close
 
     const [open, setOpen] = useState(false);
+    const [editOpen, setEditOpen] = useState(false);
 
-    const handleOpen = () => {
+    const handleOpen = async (event) => {
         setOpen(true);
     };
 
@@ -54,9 +61,19 @@ const Expenses = params => {
         setOpen(false);
     };
 
-    // state for expenses
+    const handleEditOpen = async (event) => {
+        setEditOpen(true);
+    };
 
-    const [formState, setFormState] = useState({ category: '', cost: '', comment: '' });
+    const handleEditClose = () => {
+        setEditOpen(false);
+    };
+
+    const handleExpenseState = (event) => {
+        setExpenseState(event.target.id);
+
+        console.log(expenseState);
+    };
 
     // material UI styles for modal and grid
 
@@ -92,7 +109,7 @@ const Expenses = params => {
     const handleDelete = async (event) => {
         try {
             await deleteExpense({
-                variables: { id: event.target.id }
+                variables: { expenseId: event.target.id, _id: roadtripId }
             });
 
             window.location.reload(false)
@@ -125,6 +142,35 @@ const Expenses = params => {
                     cost: parseInt(formState.cost),
                     comment: formState.comment,
                     _id: roadtripId
+                }
+            })
+
+            window.location.reload(false);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
+
+    const handleEditSubmit = async event => {
+        event.preventDefault();
+
+        console.log({
+            category: formState.category,
+            cost: parseInt(formState.cost),
+            comment: formState.comment,
+            _id: roadtripId,
+            // expenseId: expenseId
+        })
+        try {
+            await updateExpense({
+                variables: {
+                    category: formState.category,
+                    cost: parseInt(formState.cost),
+                    comment: formState.comment,
+                    _id: roadtripId,
+                    // expenseId: expenseId
                 }
             })
 
@@ -175,6 +221,29 @@ const Expenses = params => {
         </div>
     );
 
+    const editBody = (
+        <div className={classes.modal}>
+            <p> Edit Expense </p>
+            <form className={classes.form} onSubmit={handleEditSubmit}>
+                <InputLabel id="categoryList">Choose a Category</InputLabel>
+                <Select className='modalInput' id="categories" labelId="categoryList" name="category" onChange={handleChange}>
+                    {categories.map((category) => (
+                        <MenuItem key={category} value={category}>
+                            {category}
+                        </MenuItem>
+                    ))}
+                </Select>
+                <br></br>
+                <Input className='modalInput' type="number" id="cost" name="cost" placeholder="Cost" onChange={handleChange} />
+                <br></br>
+                <Input className='modalInput' id="comment" name="comment" placeholder="Comment" onChange={handleChange} />
+                <br></br>
+                <button className='submitBtn' type='submit'>Update Expense</button>
+            </form>
+
+        </div>
+    )
+
     return (
         <div className='roadtripCard'>
             <h4>Expenses</h4>
@@ -193,7 +262,16 @@ const Expenses = params => {
                                 <br></br>
                                 <p>Comment: {expense.comment}</p>
                                 <br></br>
-                                <button className='smallBtn'>Edit</button>
+                                <button id={expense._id} onClick={handleEditOpen} className="smallBtn">Edit</button>
+                                <Modal
+                                    open={editOpen}
+                                    onClose={handleEditClose}
+                                    className={classes.modalParent}
+                                    aria-labelledby="simple-modal-title"
+                                    aria-describedby="simple-modal-description"
+                                >
+                                    {editBody}
+                                </Modal>
                                 <button id={expense._id} onClick={handleDelete} className="smallBtn">Delete</button>
                             </Paper>
                         </Grid>
