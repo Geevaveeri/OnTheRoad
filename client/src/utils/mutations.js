@@ -164,12 +164,7 @@ export const ADD_EXPENSE = gql`
 		$comment: String
 		$_id: ID!
 	) {
-		addExpense(
-			category: $category
-			cost: $cost
-			comment: $comment
-			_id: $_id
-		) {
+		addExpense(category: $category, cost: $cost, comment: $comment, _id: $_id) {
 			_id
 			name
 			destination
@@ -281,11 +276,7 @@ export const DELETE_EXPENSE = gql`
 `;
 
 export const ADD_IMAGE = gql`
-	mutation addImage(
-		$url: String!
-		$alt: String!
-		$_id: ID!
-	) {
+	mutation addImage($url: String!, $alt: String!, $_id: ID!) {
 		addImage(url: $url, alt: $alt, _id: $_id) {
 			_id
 			name
@@ -386,6 +377,72 @@ export const ADD_STOP = gql`
 export const DELETE_STOP = gql`
 	mutation deleteStop($_id: ID!, $stopId: ID!) {
 		deleteStop(_id: $_id, stopId: $stopId) {
+			_id
+			name
+			destination
+			playlist
+			images {
+				_id
+				username
+				url
+				alt
+			}
+			expenses {
+				_id
+				category
+				cost
+				comment
+				username
+			}
+			stops {
+				_id
+				lat
+				lon
+			}
+			users {
+				_id
+				username
+			}
+		}
+	}
+`;
+
+export const ADD_PLAYLIST = gql`
+	mutation addPlaylist($playlist: String!, $roadtripId: ID!) {
+		addPlaylist(playlist: $playlist, roadtripId: $roadtripId) {
+			_id
+			name
+			destination
+			playlist
+			images {
+				_id
+				username
+				url
+				alt
+			}
+			expenses {
+				_id
+				category
+				cost
+				comment
+				username
+			}
+			stops {
+				_id
+				lat
+				lon
+			}
+			users {
+				_id
+				username
+			}
+		}
+	}
+`;
+
+export const DELETE_PLAYLIST = gql`
+	mutation deletePlaylist($_id: ID!) {
+		deletePlaylist(_id: $_id) {
 			_id
 			name
 			destination
