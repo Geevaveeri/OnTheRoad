@@ -162,14 +162,12 @@ export const ADD_EXPENSE = gql`
 		$category: String!
 		$cost: Int!
 		$comment: String
-		$username: String!
 		$_id: ID!
 	) {
 		addExpense(
 			category: $category
 			cost: $cost
 			comment: $comment
-			username: $username
 			_id: $_id
 		) {
 			_id
