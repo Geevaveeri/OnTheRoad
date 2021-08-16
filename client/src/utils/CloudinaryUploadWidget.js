@@ -1,4 +1,4 @@
-// all of this code came from the help of Roee Ben Ari
+// made with help from Roee Ben Ari
 
 import React, { Component } from "react";
 
