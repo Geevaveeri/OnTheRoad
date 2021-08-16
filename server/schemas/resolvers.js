@@ -116,11 +116,18 @@ const resolvers = {
 					{ $pull: { users: userId } },
 					{ new: true }
 				)
-					.select("-__v")
-					.populate("images")
-					.populate("expenses")
-					.populate("stops")
-					.populate("users");
+				
+				.select("-__v")
+				.populate("images")
+				.populate("expenses")
+				.populate("stops")
+				.populate("users");
+
+				await User.findOneAndUpdate(
+					{_id: userId},
+					{$pull: {roadtrips: _id}},
+					{new: true}
+				)
 
 				return updatedRoadtrip;
 			}
