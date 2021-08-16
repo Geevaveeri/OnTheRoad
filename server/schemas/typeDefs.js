@@ -61,7 +61,6 @@ const typeDefs = gql`
 			category: String!
 			cost: Int!
 			comment: String
-			username: String!
 			_id: ID!
 		): Roadtrip
 		updateExpense(
