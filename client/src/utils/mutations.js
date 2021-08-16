@@ -202,7 +202,6 @@ export const UPDATE_EXPENSE = gql`
 		$comment: String
 		$_id: ID!
 		$expenseId: ID!
-		$username: String!
 	) {
 		updateExpense(
 			category: $category

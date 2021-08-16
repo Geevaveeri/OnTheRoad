@@ -200,7 +200,7 @@ const resolvers = {
 			if (context.user) {
 				const updatedExpense = await Roadtrip.findOneAndUpdate(
 					{ _id: _id, "expenses._id": expenseId },
-					{ $set: { "expenses.$": args } },
+					{ $set: { "expenses.$": { username: context.user.username, args } } },
 					{ new: true }
 				)
 					.select("-__v")

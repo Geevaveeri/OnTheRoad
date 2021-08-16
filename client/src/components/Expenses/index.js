@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import DoughnutChart from '../Chart';
 
 import { useQuery, useMutation } from '@apollo/client';
-import { SINGLE_TRIP, GET_ME } from '../../utils/queries';
-import { ADD_EXPENSE, DELETE_EXPENSE } from '../../utils/mutations';
+import { SINGLE_TRIP } from '../../utils/queries';
+import { ADD_EXPENSE, DELETE_EXPENSE, UPDATE_EXPENSE } from '../../utils/mutations';
 
 // material imports
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,30 +19,63 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 const Expenses = params => {
 
+    // roadtrip id for all
+
     const { id: roadtripId } = useParams();
 
+    // mutations and queries
     const { loading, data } = useQuery(SINGLE_TRIP, {
         variables: { id: roadtripId }
     });
+    const [deleteExpense] = useMutation(DELETE_EXPENSE);
+    const [addExpense] = useMutation(ADD_EXPENSE);
+    const [updateExpense] = useMutation(UPDATE_EXPENSE);
+
+    // users
+
+    const users = data.roadtrip.users.map(user => user.username);
+
+    // expenses
 
     const expenses = data.roadtrip.expenses || [];
-    const users = data.roadtrip.users.map(user => user.username);
     const individualExpense = data.roadtrip.users.map(user => {
         const oneCost = expenses.filter(expense => expense.username === user).reduce((total, expense) => { return total + expense.cost }, 0);
         return oneCost;
     })
 
-    const [open, setOpen] = useState(false);
-    const [formState, setFormState] = useState({ category: '', cost: '', comment: '' });
-    const [addExpense] = useMutation(ADD_EXPENSE);
+    // state for expenses
 
-    const handleOpen = () => {
+    const [formState, setFormState] = useState({ category: '', cost: '', comment: '' });
+    const [expenseState, setExpenseState] = useState('');
+
+    // modal open and close
+
+    const [open, setOpen] = useState(false);
+    const [editOpen, setEditOpen] = useState(false);
+
+    const handleOpen = async (event) => {
         setOpen(true);
     };
 
     const handleClose = () => {
         setOpen(false);
     };
+
+    const handleEditOpen = async (event) => {
+        setEditOpen(true);
+    };
+
+    const handleEditClose = () => {
+        setEditOpen(false);
+    };
+
+    const handleExpenseState = (event) => {
+        setExpenseState(event.target.id);
+
+        console.log(expenseState);
+    };
+
+    // material UI styles for modal and grid
 
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -52,13 +85,14 @@ const Expenses = params => {
             padding: theme.spacing(2),
             textAlign: 'center',
             color: theme.palette.text.secondary,
+            margin: 5
         },
         modal: {
             width: 400,
             backgroundColor: theme.palette.background.paper,
-            border: '2px solid #000',
             boxShadow: theme.shadows[5],
             padding: theme.spacing(2, 4, 3),
+            borderRadius: '12px',
         },
         modalParent: {
             display: 'flex',
@@ -69,6 +103,22 @@ const Expenses = params => {
             minWidth: 350
         }
     }));
+
+    // delete expense
+
+    const handleDelete = async (event) => {
+        try {
+            await deleteExpense({
+                variables: { expenseId: event.target.id, _id: roadtripId }
+            });
+
+            window.location.reload(false)
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    // form changes
 
     const handleChange = event => {
         const { name, value } = event.target;
@@ -102,11 +152,42 @@ const Expenses = params => {
         }
     }
 
+
+    const handleEditSubmit = async event => {
+        event.preventDefault();
+
+        console.log({
+            category: formState.category,
+            cost: parseInt(formState.cost),
+            comment: formState.comment,
+            _id: roadtripId,
+            // expenseId: expenseId
+        })
+        try {
+            await updateExpense({
+                variables: {
+                    category: formState.category,
+                    cost: parseInt(formState.cost),
+                    comment: formState.comment,
+                    _id: roadtripId,
+                    // expenseId: expenseId
+                }
+            })
+
+            window.location.reload(false);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
     const classes = useStyles();
 
     if (loading) {
         return <div>Loading...</div>;
     }
+
+    // categories for form
 
     const categories = [
         'Gas',
@@ -116,11 +197,13 @@ const Expenses = params => {
         'Misc'
     ]
 
+    // modal body
+
     const body = (
         <div className={classes.modal}>
             <form className={classes.form} onSubmit={handleFormSubmit}>
                 <InputLabel id="categoryList">Choose a Category</InputLabel>
-                <Select id="categories" labelId="categoryList" name="category" onChange={handleChange}>
+                <Select className='modalInput' id="categories" labelId="categoryList" name="category" onChange={handleChange}>
                     {categories.map((category) => (
                         <MenuItem key={category} value={category}>
                             {category}
@@ -128,9 +211,9 @@ const Expenses = params => {
                     ))}
                 </Select>
                 <br></br>
-                <Input type="number" id="cost" name="cost" placeholder="Cost" onChange={handleChange} />
+                <Input className='modalInput' type="number" id="cost" name="cost" placeholder="Cost" onChange={handleChange} />
                 <br></br>
-                <Input id="comment" name="comment" placeholder="Comment" onChange={handleChange} />
+                <Input className='modalInput' id="comment" name="comment" placeholder="Comment" onChange={handleChange} />
                 <br></br>
                 <button className='submitBtn' type='submit'>Add Expense</button>
             </form>
@@ -138,37 +221,79 @@ const Expenses = params => {
         </div>
     );
 
+    const editBody = (
+        <div className={classes.modal}>
+            <p> Edit Expense </p>
+            <form className={classes.form} onSubmit={handleEditSubmit}>
+                <InputLabel id="categoryList">Choose a Category</InputLabel>
+                <Select className='modalInput' id="categories" labelId="categoryList" name="category" onChange={handleChange}>
+                    {categories.map((category) => (
+                        <MenuItem key={category} value={category}>
+                            {category}
+                        </MenuItem>
+                    ))}
+                </Select>
+                <br></br>
+                <Input className='modalInput' type="number" id="cost" name="cost" placeholder="Cost" onChange={handleChange} />
+                <br></br>
+                <Input className='modalInput' id="comment" name="comment" placeholder="Comment" onChange={handleChange} />
+                <br></br>
+                <button className='submitBtn' type='submit'>Update Expense</button>
+            </form>
+
+        </div>
+    )
+
     return (
         <div className='roadtripCard'>
             <h4>Expenses</h4>
             <DoughnutChart data={individualExpense} labels={users} />
 
-            <Grid item xs={12}>
+            <Grid container>
                 {expenses && expenses.map(expense => (
                     <div key={expense._id}>
-                        <Grid item xs={6} sm={3}>
-                            <Paper className={classes.paper}>{expense.username}
-                                <button className='smallBtn'>Edit</button>
+                        <Grid className='gridItem' item xs={12} sm={4}>
+                            <Paper className={classes.paper}>
+                                <p>User: {expense.username}</p>
+                                <br></br>
+                                <p>Cost: ${expense.cost}</p>
+                                <br></br>
+                                <p>Category: {expense.category}</p>
+                                <br></br>
+                                <p>Comment: {expense.comment}</p>
+                                <br></br>
+                                <button id={expense._id} onClick={handleEditOpen} className="smallBtn">Edit</button>
+                                <Modal
+                                    open={editOpen}
+                                    onClose={handleEditClose}
+                                    className={classes.modalParent}
+                                    aria-labelledby="simple-modal-title"
+                                    aria-describedby="simple-modal-description"
+                                >
+                                    {editBody}
+                                </Modal>
+                                <button id={expense._id} onClick={handleDelete} className="smallBtn">Delete</button>
                             </Paper>
                         </Grid>
                     </div>
                 ))}
-                <button
-                    type="button"
-                    onClick={handleOpen}
-                    className='submitBtn'>
-                    Add Expense
-            </button>
-                <Modal
-                    open={open}
-                    onClose={handleClose}
-                    className={classes.modalParent}
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description"
-                >
-                    {body}
-                </Modal>
             </Grid>
+
+            <button
+                type="button"
+                onClick={handleOpen}
+                className='submitBtn'>
+                Add Expense
+            </button>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                className={classes.modalParent}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+            >
+                {body}
+            </Modal>
         </div>
     );
 }
