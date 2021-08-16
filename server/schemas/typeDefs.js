@@ -76,6 +76,8 @@ const typeDefs = gql`
 		deleteImage(_id: ID!, imageId: ID!): Roadtrip
 		addStop(lat: String!, lon: String!, _id: ID!): Roadtrip
 		deleteStop(_id: ID!, stopId: ID!): Roadtrip
+		addPlaylist(playlist: String!, roadtripId: ID!): Roadtrip
+		deletePlaylist(_id: ID!): Roadtrip
 	}
 `;
 
