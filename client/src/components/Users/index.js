@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
-<<<<<<< HEAD
-import { useQuery } from '@apollo/client';
-import { SINGLE_TRIP, SINGLE_USER } from '../../utils/queries';
-=======
 import { useQuery, useMutation } from '@apollo/client';
 import { SINGLE_TRIP } from '../../utils/queries';
 import { ADD_USER, REMOVE_USER } from '../../utils/mutations';
->>>>>>> 4d15026d283e017f70a7983226c55d2d89a01b00
 
 // material imports
 import { makeStyles } from '@material-ui/core/styles';
