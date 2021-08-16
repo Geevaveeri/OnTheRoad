@@ -39,7 +39,7 @@ const Expenses = params => {
 
     const expenses = data.roadtrip.expenses || [];
     const individualExpense = data.roadtrip.users.map(user => {
-        const oneCost = expenses.reduce((total, expense) => { return total + expense.cost }, 0);
+        const oneCost = user.expenses.reduce((total, expense) => { return total + expense.cost }, 0);
         return oneCost;
     })
 
