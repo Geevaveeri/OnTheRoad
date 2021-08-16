@@ -158,7 +158,7 @@ const resolvers = {
 				return updatedRoadtrip;
 			}
 		},
-		addExpense: async (parent, { _id, username, ...args }, context) => {
+		addExpense: async (parent, { _id, ...args }, context) => {
 			if (context.user) {
 				const updatedRoadtrip = await Roadtrip.findOneAndUpdate(
 					{ _id: _id },
