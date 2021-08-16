@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import DoughnutChart from '../Chart';
 
 import { useQuery, useMutation } from '@apollo/client';
-import { SINGLE_TRIP, GET_ME } from '../../utils/queries';
+import { SINGLE_TRIP } from '../../utils/queries';
 import { ADD_EXPENSE, DELETE_EXPENSE } from '../../utils/mutations';
 
 // material imports
@@ -24,13 +24,6 @@ const Expenses = params => {
     const { loading, data } = useQuery(SINGLE_TRIP, {
         variables: { id: roadtripId }
     });
-
-    const expenses = data.roadtrip.expenses || [];
-    const users = data.roadtrip.users.map(user => user.username);
-    const individualExpense = data.roadtrip.users.map(user => {
-        const oneCost = expenses.filter(expense => expense.username === user).reduce((total, expense) => { return total + expense.cost }, 0);
-        return oneCost;
-    })
 
     const [open, setOpen] = useState(false);
     const [formState, setFormState] = useState({ category: '', cost: '', comment: '' });
@@ -138,6 +131,21 @@ const Expenses = params => {
         </div>
     );
 
+    const expenses = data.roadtrip.expenses || [];
+    const users = data.roadtrip.users.map(user => user.username);
+    const individualExpense = data.roadtrip.users.map(user => {
+        const oneCost = user.expenses.reduce((total, expense) => { return total + expense.cost }, 0);
+        console.log(oneCost);
+        return oneCost;
+    })
+
+
+
+    //in expenses, grab username from each expense
+    //create array for each individual username
+    //push cost fom each expense into corresponding username array
+    //reduce each array to one final number
+
     return (
         <div className='roadtripCard'>
             <h4>Expenses</h4>
@@ -148,6 +156,8 @@ const Expenses = params => {
                     <div key={expense._id}>
                         <Grid item xs={6} sm={3}>
                             <Paper className={classes.paper}>{expense.username}
+                                <p>{expense.cost}</p>
+                                <p>{expense.comment}</p>
                                 <button className='smallBtn'>Edit</button>
                             </Paper>
                         </Grid>

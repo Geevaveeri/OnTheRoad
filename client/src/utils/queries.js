@@ -91,6 +91,13 @@ export const SINGLE_TRIP = gql`
 			users {
 				_id
 				username
+				expenses {
+					_id
+					category
+					cost
+					comment
+					username
+				}
 			}
 		}
 	}
