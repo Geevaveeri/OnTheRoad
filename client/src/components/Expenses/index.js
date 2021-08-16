@@ -59,7 +59,7 @@ const Expenses = params => {
     const body = (
         <div>
         <TextField id="standard-basic" label="Standard" />
-        
+        <p>HELLO</p>
         </div>
     );
 
@@ -79,6 +79,7 @@ const Expenses = params => {
                 </div>
             ))}
             <button 
+                className="submitBtn"
                 type="button"
                 onClick={handleOpen}>                
                 Add Expense

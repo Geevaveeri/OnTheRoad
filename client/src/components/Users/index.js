@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 
 import { useQuery } from '@apollo/client';
-import { SINGLE_TRIP } from '../../utils/queries';
+import { SINGLE_TRIP, SINGLE_USER } from '../../utils/queries';
 
 // material imports
 import { makeStyles } from '@material-ui/core/styles';
