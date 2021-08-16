@@ -116,18 +116,18 @@ const resolvers = {
 					{ $pull: { users: userId } },
 					{ new: true }
 				)
-				
-				.select("-__v")
-				.populate("images")
-				.populate("expenses")
-				.populate("stops")
-				.populate("users");
+
+					.select("-__v")
+					.populate("images")
+					.populate("expenses")
+					.populate("stops")
+					.populate("users");
 
 				await User.findOneAndUpdate(
-					{_id: userId},
-					{$pull: {roadtrips: _id}},
-					{new: true}
-				)
+					{ _id: userId },
+					{ $pull: { roadtrips: _id } },
+					{ new: true }
+				);
 
 				return updatedRoadtrip;
 			}
@@ -158,11 +158,21 @@ const resolvers = {
 				return updatedRoadtrip;
 			}
 		},
-		addExpense: async (parent, { _id, ...args }, context) => {
+		addExpense: async (parent, { _id, username, ...args }, context) => {
 			if (context.user) {
 				const updatedRoadtrip = await Roadtrip.findOneAndUpdate(
 					{ _id: _id },
-					{ $push: { expenses: args } },
+					{
+						$push: {
+							expenses: {
+								category: args.category,
+								cost: args.cost,
+								comment: args.comment,
+								username: context.user.username,
+								roadtripId: _id,
+							},
+						},
+					},
 					{ new: true }
 				)
 					.select("-__v")
