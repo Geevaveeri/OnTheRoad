@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { useQuery, useMutation } from '@apollo/client';
 import { SINGLE_TRIP } from '../../utils/queries';
@@ -54,7 +54,7 @@ const Users = params => {
     };
 
     const [searchValue, setSearchValue] = useState({ username: '' });
-    const [addUser, { error }] = useMutation(ADD_USER);
+    const [addUser] = useMutation(ADD_USER);
     const [removeUser] = useMutation(REMOVE_USER);
 
     const handleChange = event => {

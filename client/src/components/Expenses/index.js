@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 import DoughnutChart from '../Chart';
 
 import { useQuery, useMutation } from '@apollo/client';
-import { SINGLE_TRIP, GET_ME } from '../../utils/queries';
+import { SINGLE_TRIP } from '../../utils/queries';
 import { ADD_EXPENSE, DELETE_EXPENSE } from '../../utils/mutations';
 
 // material imports
@@ -25,6 +25,9 @@ const Expenses = params => {
         variables: { id: roadtripId }
     });
 
+    const [deleteExpense] = useMutation(DELETE_EXPENSE);
+    const [addExpense] = useMutation(ADD_EXPENSE);
+
     const expenses = data.roadtrip.expenses || [];
     const users = data.roadtrip.users.map(user => user.username);
     const individualExpense = data.roadtrip.users.map(user => {
@@ -34,7 +37,6 @@ const Expenses = params => {
 
     const [open, setOpen] = useState(false);
     const [formState, setFormState] = useState({ category: '', cost: '', comment: '' });
-    const [addExpense] = useMutation(ADD_EXPENSE);
 
     const handleOpen = () => {
         setOpen(true);
@@ -70,6 +72,19 @@ const Expenses = params => {
             minWidth: 350
         }
     }));
+
+
+    const handleDelete = async (event) => {
+        try {
+            await deleteExpense({
+                variables: { id: event.target.id }
+            });
+
+            window.location.reload(false)
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     const handleChange = event => {
         const { name, value } = event.target;
@@ -158,6 +173,7 @@ const Expenses = params => {
                                 <p>Comment: {expense.comment}</p>
                                 <br></br>
                                 <button className='smallBtn'>Edit</button>
+                                <button id={expense._id} onClick={handleDelete} className="smallBtn">Delete</button>
                             </Paper>
                         </Grid>
                     </div>
