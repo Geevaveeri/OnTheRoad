@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
-const Gallery = params => {
+const Stops = params => {
     const { id: roadtripId } = useParams();
 
     const { loading, data } = useQuery(SINGLE_TRIP, {
@@ -34,31 +34,29 @@ const Gallery = params => {
         return <div>Loading...</div>;
     }
 
-    const images = data.roadtrip.images || [];
+    const stops = data.roadtrip.stops || [];
 
     return (
 
         <div className='roadtripCard'>
-            <h4>Gallery</h4>
+            <h4>Stops</h4>
             <div className={classes.root}>
                 <Grid
                     container
                     justifyContent="center"
                     spacing={3}>
-                    <Grid item xs={12} className='galleryList'>
-                        {images && images.map(image => (
-                            <div className='galleryItem' key={image._id}>
+                    <Grid item xs={12} className='userList'>
+                        {stops && stops.map(stop => (
+                            <div className='userItem' key={stop._id}>
                                 <Grid item xs={6} sm={3}>
-                                    <Paper className={classes.paper}>{image._id}
-                                        <img src={image.url} alt={image.alt}/>
-                                        <p>posted by: {image.username}</p>
-                                        <button className='smallBtn'>Delete Image</button>
+                                    <Paper className={classes.paper}>{stop.username}
+                                        <button className='smallBtn'>Remove Stop</button>
                                     </Paper>
                                 </Grid>
                             </div>
                         ))}
                         <button className='submitBtn'>
-                            <Link to={`/roadtrip/:id/upload`}>Upload</Link>
+                            <Link to={`/roadtrip/:id/addStop`}>Add Stop</Link>
                         </button>
                     </Grid>
                 </Grid>
@@ -67,4 +65,4 @@ const Gallery = params => {
     );
 };
 
-export default Gallery;
+export default Stops;

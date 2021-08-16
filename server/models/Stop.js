@@ -11,6 +11,16 @@ const stopSchema = new Schema(
             type: String,
             required: true,
             trim: true
+        },
+        name: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        address: {
+            type: String,
+            required: true,
+            trim: true
         }
     }
 );
