@@ -52,6 +52,7 @@ const Expenses = params => {
             padding: theme.spacing(2),
             textAlign: 'center',
             color: theme.palette.text.secondary,
+            margin: 5
         },
         modal: {
             width: 400,
@@ -143,32 +144,41 @@ const Expenses = params => {
             <h4>Expenses</h4>
             <DoughnutChart data={individualExpense} labels={users} />
 
-            <Grid item xs={12}>
+            <Grid container>
                 {expenses && expenses.map(expense => (
                     <div key={expense._id}>
-                        <Grid item xs={6} sm={3}>
-                            <Paper className={classes.paper}>{expense.username}
+                        <Grid className='gridItem' item xs={12} sm={4}>
+                            <Paper className={classes.paper}>
+                                <p>User: {expense.username}</p>
+                                <br></br>
+                                <p>Cost: ${expense.cost}</p>
+                                <br></br>
+                                <p>Category: {expense.category}</p>
+                                <br></br>
+                                <p>Comment: {expense.comment}</p>
+                                <br></br>
                                 <button className='smallBtn'>Edit</button>
                             </Paper>
                         </Grid>
                     </div>
                 ))}
-                <button
-                    type="button"
-                    onClick={handleOpen}
-                    className='submitBtn'>
-                    Add Expense
-            </button>
-                <Modal
-                    open={open}
-                    onClose={handleClose}
-                    className={classes.modalParent}
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description"
-                >
-                    {body}
-                </Modal>
             </Grid>
+
+            <button
+                type="button"
+                onClick={handleOpen}
+                className='submitBtn'>
+                Add Expense
+            </button>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                className={classes.modalParent}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+            >
+                {body}
+            </Modal>
         </div>
     );
 }

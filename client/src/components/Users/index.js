@@ -27,6 +27,7 @@ const Users = params => {
             padding: theme.spacing(2),
             textAlign: 'center',
             color: theme.palette.text.secondary,
+            margin: 5
         },
         modal: {
             width: 400,
@@ -118,7 +119,7 @@ const Users = params => {
                     container
                     justifyContent="center"
                     spacing={3}>
-                    <Grid item xs={12} className='userList'>
+                    <Grid className='gridItem' item xs={12} className='userList'>
                         {users && users.map(user => (
                             <div className='userItem' key={user._id}>
                                 <Grid item xs={6} sm={3}>
