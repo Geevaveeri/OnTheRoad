@@ -69,7 +69,6 @@ const typeDefs = gql`
 			comment: String
 			_id: ID!
 			expenseId: ID!
-			username: String!
 		): Roadtrip
 		deleteExpense(_id: ID!, expenseId: ID!): Roadtrip
 		addImage(url: String!, alt: String!, _id: ID!): Roadtrip

@@ -1,10 +1,8 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { useQuery } from '@apollo/client';
 import { SINGLE_TRIP } from '../utils/queries';
-
-import { Grid } from '@material-ui/core';
 
 import logo from '../assets/images/logo.png';
 
