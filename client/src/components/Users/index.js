@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 
 import { useQuery, useMutation } from '@apollo/client';
 import { SINGLE_TRIP } from '../../utils/queries';
-import { ADD_USER } from '../../utils/mutations';
+import { ADD_USER, REMOVE_USER } from '../../utils/mutations';
 
 // material imports
 import { makeStyles } from '@material-ui/core/styles';
@@ -54,17 +54,16 @@ const Users = params => {
 
     const [searchValue, setSearchValue] = useState({ username: '' });
     const [addUser, { error }] = useMutation(ADD_USER);
+    const [removeUser] = useMutation(REMOVE_USER);
 
     const handleChange = event => {
         const { name, value } = event.target;
 
         setSearchValue({ ...searchValue, [name]: value })
-        console.log(searchValue)
     }
 
     const handleUserSearch = async () => {
         try {
-            console.log(roadtripId, searchValue)
             await addUser({
                 variables: { username: searchValue.username, _id: roadtripId }
             })
@@ -73,6 +72,20 @@ const Users = params => {
         }
         catch (error) {
             console.log(error);
+        }
+
+    }
+
+    const handleRemoveUser = async event => {
+        try {
+            await removeUser({
+                variables: { userId: event.target.id, _id: roadtripId }
+            })
+
+            window.location.reload(false);
+        }
+        catch (err) {
+            console.log(err);
         }
     }
 
@@ -110,7 +123,7 @@ const Users = params => {
                             <div className='userItem' key={user._id}>
                                 <Grid item xs={6} sm={3}>
                                     <Paper className={classes.paper}>{user.username}
-                                        <button className='smallBtn'>Remove User</button>
+                                        <button className='smallBtn' id={user._id} onClick={handleRemoveUser}>Remove User</button>
                                     </Paper>
                                 </Grid>
                             </div>
