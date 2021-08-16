@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import DoughnutChart from '../Chart';
 
 import { useQuery, useMutation } from '@apollo/client';
@@ -19,24 +19,32 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 const Expenses = params => {
 
+    // roadtrip id for all
+
     const { id: roadtripId } = useParams();
 
+    // mutations and queries
     const { loading, data } = useQuery(SINGLE_TRIP, {
         variables: { id: roadtripId }
     });
-
     const [deleteExpense] = useMutation(DELETE_EXPENSE);
     const [addExpense] = useMutation(ADD_EXPENSE);
 
-    const expenses = data.roadtrip.expenses || [];
+    // users
+
     const users = data.roadtrip.users.map(user => user.username);
+
+    // expenses
+
+    const expenses = data.roadtrip.expenses || [];
     const individualExpense = data.roadtrip.users.map(user => {
         const oneCost = expenses.filter(expense => expense.username === user).reduce((total, expense) => { return total + expense.cost }, 0);
         return oneCost;
     })
 
+    // modal open and close
+
     const [open, setOpen] = useState(false);
-    const [formState, setFormState] = useState({ category: '', cost: '', comment: '' });
 
     const handleOpen = () => {
         setOpen(true);
@@ -45,6 +53,12 @@ const Expenses = params => {
     const handleClose = () => {
         setOpen(false);
     };
+
+    // state for expenses
+
+    const [formState, setFormState] = useState({ category: '', cost: '', comment: '' });
+
+    // material UI styles for modal and grid
 
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -59,9 +73,9 @@ const Expenses = params => {
         modal: {
             width: 400,
             backgroundColor: theme.palette.background.paper,
-            border: '2px solid #000',
             boxShadow: theme.shadows[5],
             padding: theme.spacing(2, 4, 3),
+            borderRadius: '12px',
         },
         modalParent: {
             display: 'flex',
@@ -73,6 +87,7 @@ const Expenses = params => {
         }
     }));
 
+    // delete expense
 
     const handleDelete = async (event) => {
         try {
@@ -85,6 +100,8 @@ const Expenses = params => {
             console.error(error);
         }
     };
+
+    // form changes
 
     const handleChange = event => {
         const { name, value } = event.target;
@@ -124,6 +141,8 @@ const Expenses = params => {
         return <div>Loading...</div>;
     }
 
+    // categories for form
+
     const categories = [
         'Gas',
         'Food',
@@ -132,11 +151,13 @@ const Expenses = params => {
         'Misc'
     ]
 
+    // modal body
+
     const body = (
         <div className={classes.modal}>
             <form className={classes.form} onSubmit={handleFormSubmit}>
                 <InputLabel id="categoryList">Choose a Category</InputLabel>
-                <Select id="categories" labelId="categoryList" name="category" onChange={handleChange}>
+                <Select className='modalInput' id="categories" labelId="categoryList" name="category" onChange={handleChange}>
                     {categories.map((category) => (
                         <MenuItem key={category} value={category}>
                             {category}
@@ -144,9 +165,9 @@ const Expenses = params => {
                     ))}
                 </Select>
                 <br></br>
-                <Input type="number" id="cost" name="cost" placeholder="Cost" onChange={handleChange} />
+                <Input className='modalInput' type="number" id="cost" name="cost" placeholder="Cost" onChange={handleChange} />
                 <br></br>
-                <Input id="comment" name="comment" placeholder="Comment" onChange={handleChange} />
+                <Input className='modalInput' id="comment" name="comment" placeholder="Comment" onChange={handleChange} />
                 <br></br>
                 <button className='submitBtn' type='submit'>Add Expense</button>
             </form>

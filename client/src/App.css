@@ -173,6 +173,11 @@ a:link {
   
 }
 
+.modalInput {
+  min-width: 380px;
+  margin-top: 10px;
+}
+
 
 /* footer styles */
 
