@@ -86,8 +86,6 @@ const Expenses = params => {
 
 	function handleExpenseState(expenseId) {
 		setExpenseState({ expenseId: expenseId });
-		console.log(expenseId);
-		console.log(expenseState);
 	}
 
 	// material UI styles for modal and grid
