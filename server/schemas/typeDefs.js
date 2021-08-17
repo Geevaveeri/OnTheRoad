@@ -61,7 +61,6 @@ const typeDefs = gql`
 			category: String!
 			cost: Int!
 			comment: String
-			username: String!
 			_id: ID!
 		): Roadtrip
 		updateExpense(
@@ -70,13 +69,14 @@ const typeDefs = gql`
 			comment: String
 			_id: ID!
 			expenseId: ID!
-			username: String!
 		): Roadtrip
 		deleteExpense(_id: ID!, expenseId: ID!): Roadtrip
 		addImage(url: String!, alt: String!, _id: ID!): Roadtrip
 		deleteImage(_id: ID!, imageId: ID!): Roadtrip
 		addStop(lat: String!, lon: String!, _id: ID!): Roadtrip
 		deleteStop(_id: ID!, stopId: ID!): Roadtrip
+		addPlaylist(playlist: String!, roadtripId: ID!): Roadtrip
+		deletePlaylist(_id: ID!): Roadtrip
 	}
 `;
 

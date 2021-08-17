@@ -12,7 +12,7 @@ const resolvers = {
 					.select("-__v -password")
 					.populate("roadtrips")
 					.populate("expenses");
-
+				console.log(userData);
 				return userData;
 			}
 			throw new AuthenticationError("Not Logged In");
@@ -66,6 +66,11 @@ const resolvers = {
 		createUser: async (parent, args) => {
 			console.log("hit");
 			const user = await User.create(args);
+
+			if (user.username) {
+				throw new AuthenticationError("Username already taken.");
+			}
+
 			const token = signToken(user);
 			return { token, user };
 		},
@@ -116,18 +121,18 @@ const resolvers = {
 					{ $pull: { users: userId } },
 					{ new: true }
 				)
-				
-				.select("-__v")
-				.populate("images")
-				.populate("expenses")
-				.populate("stops")
-				.populate("users");
+
+					.select("-__v")
+					.populate("images")
+					.populate("expenses")
+					.populate("stops")
+					.populate("users");
 
 				await User.findOneAndUpdate(
-					{_id: userId},
-					{$pull: {roadtrips: _id}},
-					{new: true}
-				)
+					{ _id: userId },
+					{ $pull: { roadtrips: _id } },
+					{ new: true }
+				);
 
 				return updatedRoadtrip;
 			}
@@ -162,7 +167,17 @@ const resolvers = {
 			if (context.user) {
 				const updatedRoadtrip = await Roadtrip.findOneAndUpdate(
 					{ _id: _id },
-					{ $push: { expenses: args } },
+					{
+						$push: {
+							expenses: {
+								category: args.category,
+								cost: args.cost,
+								comment: args.comment,
+								username: context.user.username,
+								roadtripId: _id,
+							},
+						},
+					},
 					{ new: true }
 				)
 					.select("-__v")
@@ -185,7 +200,16 @@ const resolvers = {
 			if (context.user) {
 				const updatedExpense = await Roadtrip.findOneAndUpdate(
 					{ _id: _id, "expenses._id": expenseId },
-					{ $set: { "expenses.$": args } },
+					{
+						$set: {
+							"expenses.$": {
+								username: context.user.username,
+								category: args.category,
+								cost: args.cost,
+								comment: args.comment,
+							},
+						},
+					},
 					{ new: true }
 				)
 					.select("-__v")
@@ -193,8 +217,7 @@ const resolvers = {
 					.populate("expenses")
 					.populate("stops")
 					.populate("users");
-				console.log("-------------------------------------------");
-				console.log(updatedExpense);
+
 				await User.findOneAndUpdate(
 					{ _id: context.user._id, "expenses._id": expenseId },
 					{ $set: { "expenses.$": args } },
@@ -273,10 +296,10 @@ const resolvers = {
 
 			throw new AuthenticationError("You need to be logged in!");
 		},
-		addStop: async (parent, args, context) => {
+		addStop: async (parent, { _id, ...args }, context) => {
 			if (context.user) {
 				const updatedStop = await Roadtrip.findOneAndUpdate(
-					{ _id: args._id },
+					{ _id },
 					{ $push: { stops: args } },
 					{ new: true }
 				)
@@ -291,10 +314,10 @@ const resolvers = {
 
 			throw new AuthenticationError("You need to be logged in!");
 		},
-		deleteStop: async (parent, args, context) => {
+		deleteStop: async (parent, { _id, ...args }, context) => {
 			if (context.user) {
 				const updatedStop = await Roadtrip.findOneAndUpdate(
-					{ _id: args._id },
+					{ _id },
 					{ $pull: { stops: { _id: args.stopId } } },
 					{ new: true }
 				)
@@ -305,6 +328,42 @@ const resolvers = {
 					.populate("users");
 
 				return updatedStop;
+			}
+
+			throw new AuthenticationError("You need to be logged in!");
+		},
+		addPlaylist: async (parent, { roadtripId, playlist }, context) => {
+			if (context.user) {
+				const updatedPlaylist = await Roadtrip.findOneAndUpdate(
+					{ _id: roadtripId },
+					{ $set: { playlist } },
+					{ new: true }
+				)
+					.select("-__v")
+					.populate("images")
+					.populate("expenses")
+					.populate("stops")
+					.populate("users");
+
+				return updatedPlaylist;
+			}
+
+			throw new AuthenticationError("You need to be logged in!");
+		},
+		deletePlaylist: async (parent, { _id, playlist }, context) => {
+			if (context.user) {
+				const updatedPlaylist = await Roadtrip.findOneAndUpdate(
+					{ _id },
+					{ $unset: { playlist } },
+					{ new: true }
+				)
+					.select("-__v")
+					.populate("images")
+					.populate("expenses")
+					.populate("stops")
+					.populate("users");
+
+					return updatedPlaylist;
 			}
 
 			throw new AuthenticationError("You need to be logged in!");

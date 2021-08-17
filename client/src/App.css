@@ -157,6 +157,28 @@ a:link {
   border: 2px solid var(--light-green);
 }
 
+/* grid styles */
+
+.gridItem {
+  min-width: 300px;
+  min-height: 200px;
+}
+
+.gridItem p {
+  display: flex;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  
+}
+
+.modalInput {
+  min-width: 380px;
+  margin-top: 10px;
+}
+
+
 /* footer styles */
 
 .footer {

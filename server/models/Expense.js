@@ -20,7 +20,7 @@ const expenseSchema = new Schema({
 		required: true,
 		trim: true,
 	},
-	
+
 });
 
 module.exports = expenseSchema;

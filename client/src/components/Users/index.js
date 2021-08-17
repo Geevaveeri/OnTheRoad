@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { useQuery, useMutation } from '@apollo/client';
 import { SINGLE_TRIP } from '../../utils/queries';
@@ -27,13 +27,14 @@ const Users = params => {
             padding: theme.spacing(2),
             textAlign: 'center',
             color: theme.palette.text.secondary,
+            margin: 5
         },
         modal: {
             width: 400,
             backgroundColor: theme.palette.background.paper,
-            border: '2px solid #000',
             boxShadow: theme.shadows[5],
             padding: theme.spacing(2, 4, 3),
+            borderRadius: '12px',
         },
         modalParent: {
             display: 'flex',
@@ -53,7 +54,7 @@ const Users = params => {
     };
 
     const [searchValue, setSearchValue] = useState({ username: '' });
-    const [addUser, { error }] = useMutation(ADD_USER);
+    const [addUser] = useMutation(ADD_USER);
     const [removeUser] = useMutation(REMOVE_USER);
 
     const handleChange = event => {
@@ -118,7 +119,7 @@ const Users = params => {
                     container
                     justifyContent="center"
                     spacing={3}>
-                    <Grid item xs={12} className='userList'>
+                    <Grid className='gridItem' item xs={12} className='userList'>
                         {users && users.map(user => (
                             <div className='userItem' key={user._id}>
                                 <Grid item xs={6} sm={3}>
