@@ -12,7 +12,7 @@ const resolvers = {
 					.select("-__v -password")
 					.populate("roadtrips")
 					.populate("expenses");
-
+				console.log(userData);
 				return userData;
 			}
 			throw new AuthenticationError("Not Logged In");
@@ -200,7 +200,16 @@ const resolvers = {
 			if (context.user) {
 				const updatedExpense = await Roadtrip.findOneAndUpdate(
 					{ _id: _id, "expenses._id": expenseId },
-					{ $set: { "expenses.$": { username: context.user.username, args } } },
+					{
+						$set: {
+							"expenses.$": {
+								username: context.user.username,
+								category: args.category,
+								cost: args.cost,
+								comment: args.comment,
+							},
+						},
+					},
 					{ new: true }
 				)
 					.select("-__v")
@@ -208,8 +217,7 @@ const resolvers = {
 					.populate("expenses")
 					.populate("stops")
 					.populate("users");
-				console.log("-------------------------------------------");
-				console.log(updatedExpense);
+
 				await User.findOneAndUpdate(
 					{ _id: context.user._id, "expenses._id": expenseId },
 					{ $set: { "expenses.$": args } },

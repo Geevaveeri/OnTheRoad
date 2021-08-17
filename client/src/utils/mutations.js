@@ -209,7 +209,6 @@ export const UPDATE_EXPENSE = gql`
 			comment: $comment
 			_id: $_id
 			expenseId: $expenseId
-			username: $username
 		) {
 			_id
 			name
