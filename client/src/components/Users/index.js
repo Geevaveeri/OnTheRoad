@@ -21,13 +21,13 @@ const Users = params => {
 
     const useStyles = makeStyles((theme) => ({
         root: {
-            flexGrow: 1,
+            flexGrow: 1
         },
         paper: {
             padding: theme.spacing(2),
             textAlign: 'center',
             color: theme.palette.text.secondary,
-            margin: 5
+            margin: 5,
         },
         modal: {
             width: 400,
