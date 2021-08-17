@@ -47,7 +47,7 @@ const CloudinaryUploadWidget = params => {
 
 
     return (
-        <button id="upload_widget" className="cloudinary-button" onClick={() => myWidget.open()}>
+        <button id="upload_widget" className="submitBtn" onClick={() => myWidget.open()}>
             Upload
         </button>
     );
