@@ -4,6 +4,8 @@ import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { SINGLE_TRIP } from '../../utils/queries';
 
+import CloudinaryUploadWidget from '../../utils/CloudinaryUploadWidget';
+
 // material imports
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -49,17 +51,18 @@ const Gallery = params => {
                         {images && images.map(image => (
                             <div className='galleryItem' key={image._id}>
                                 <Grid item xs={6} sm={3}>
-                                    <Paper className={classes.paper}>{image._id}
-                                        <img src={image.url} alt={image.alt}/>
+                                    <Paper className={classes.paper}>
+                                        <img src={image.url} alt={image.alt} />
                                         <p>posted by: {image.username}</p>
                                         <button className='smallBtn'>Delete Image</button>
                                     </Paper>
                                 </Grid>
                             </div>
                         ))}
-                        <button className='submitBtn'>
+                        {/* <button className='submitBtn'>
                             <Link to={`/roadtrip/:id/upload`}>Upload</Link>
-                        </button>
+                        </button> */}
+                        <CloudinaryUploadWidget roadtripId={roadtripId} />
                     </Grid>
                 </Grid>
             </div>
