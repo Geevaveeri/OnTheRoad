@@ -32,7 +32,7 @@ const Playlist = params => {
 
     const playlist = data.roadtrip.playlist;
 
-    const [formState, setFormState] = useState({ playlist: '' });
+    const [formState, setFormState] = useState({ url: '' });
 
     // modal open and close
 
@@ -101,11 +101,22 @@ const Playlist = params => {
         event.preventDefault();
 
         try {
+            await deletePlaylist({
+                variables: {
+                    _id: roadtripId
+                }
+            })
+        }   catch (error) {
+        console.log(error);
+        }
+
+        try {
+            console.log(typeof(formState.url))
             await addPlaylist({
                 variables: {
-                    playlist: formState.playlist,
+                    playlist: formState.url,
                     _id: roadtripId,
-                },
+                }
             });
 
             window.location.reload(false);
@@ -127,8 +138,8 @@ const Playlist = params => {
             <form className={classes.form} onSubmit={handleFormSubmit}>
                 <Input
                     className="modalInput"
-                    id="playlist"
-                    name="playlist"
+                    id="url"
+                    name="url"
                     placeholder="Playlist URL"
                     onChange={handleChange}
                 />
