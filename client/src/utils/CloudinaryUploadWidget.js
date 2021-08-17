@@ -27,8 +27,8 @@ const CloudinaryUploadWidget = params => {
 
     var myWidget = window.cloudinary.createUploadWidget(
         {
-            cloudName: "dne2ggd07",
-            uploadPreset: "rnnidcq5",
+            cloudName: process.env.REACT_APP_CC_NAME,
+            uploadPreset: process.env.REACT_APP_CC_PRESET,
             sources: ['local', 'url', 'facebook', 'instagram', 'google_drive']
         },
         (error, result) => {
