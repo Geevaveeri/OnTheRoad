@@ -19,10 +19,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 const Expenses = params => {
 
-    const currentUser = useQuery(GET_ME);
-    //const currentUser = me?.me || {};
-    const me = currentUser.data.me.username;
-    console.log(me);
+    // const currentUser = useQuery(GET_ME);
+    // //const currentUser = me?.me || {};
+    // const me = currentUser.data.me.username;
+    // console.log(me);
 
     // roadtrip id for all
 
@@ -267,20 +267,20 @@ const Expenses = params => {
                                 <br></br>
                                 <p>Comment: {expense.comment}</p>
                                 <br></br>
-                                {expense.username === me && 
-                                <>
-                                <button id={expense._id} onClick={handleEditOpen} className="smallBtn">Edit</button>
-                                <Modal
-                                    open={editOpen}
-                                    onClose={handleEditClose}
-                                    className={classes.modalParent}
-                                    aria-labelledby="simple-modal-title"
-                                    aria-describedby="simple-modal-description"
-                                >
-                                    {editBody}
-                                </Modal>
-                                <button id={expense._id} onClick={handleDelete} className="smallBtn">Delete</button>
-                                </>}
+                                {expense.username === true &&
+                                    <>
+                                        <button id={expense._id} onClick={handleEditOpen} className="smallBtn">Edit</button>
+                                        <Modal
+                                            open={editOpen}
+                                            onClose={handleEditClose}
+                                            className={classes.modalParent}
+                                            aria-labelledby="simple-modal-title"
+                                            aria-describedby="simple-modal-description"
+                                        >
+                                            {editBody}
+                                        </Modal>
+                                        <button id={expense._id} onClick={handleDelete} className="smallBtn">Delete</button>
+                                    </>}
                             </Paper>
                         </Grid>
                     </div>
