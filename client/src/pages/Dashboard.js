@@ -11,7 +11,6 @@ import { useQuery } from '@apollo/client';
 
 const Dashboard = () => {
     const { loading, data } = useQuery(GET_ME);
-
     const user = data?.me || {};
 
     return (

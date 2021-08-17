@@ -6,11 +6,11 @@ const DoughnutChart = ({ data, labels }) => {
         <div>
             <Doughnut 
                 data={{
-                    labels,
+                    labels: labels,
                     datasets: [
                         {
                           label: '$$ spent',
-                          data,
+                          data: data,
                           backgroundColor: [
                             'rgba(255, 99, 132)',
                             'rgba(54, 162, 235)',

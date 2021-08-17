@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import DoughnutChart from '../Chart';
 
 import { useQuery, useMutation } from '@apollo/client';
-import { SINGLE_TRIP } from '../../utils/queries';
+import { SINGLE_TRIP, GET_ME } from '../../utils/queries';
 import { ADD_EXPENSE, DELETE_EXPENSE, UPDATE_EXPENSE } from '../../utils/mutations';
 
 // material imports
@@ -18,6 +18,11 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 
 const Expenses = params => {
+
+    const currentUser = useQuery(GET_ME);
+    //const currentUser = me?.me || {};
+    const me = currentUser.data.me.username;
+    console.log(me);
 
     // roadtrip id for all
 
@@ -39,7 +44,7 @@ const Expenses = params => {
 
     const expenses = data.roadtrip.expenses || [];
     const individualExpense = data.roadtrip.users.map(user => {
-        const oneCost = expenses.filter(expense => expense.username === user).reduce((total, expense) => { return total + expense.cost }, 0);
+        const oneCost = user.expenses.reduce((total, expense) => { return total + expense.cost }, 0);
         return oneCost;
     })
 
@@ -262,6 +267,8 @@ const Expenses = params => {
                                 <br></br>
                                 <p>Comment: {expense.comment}</p>
                                 <br></br>
+                                {expense.username === me && 
+                                <>
                                 <button id={expense._id} onClick={handleEditOpen} className="smallBtn">Edit</button>
                                 <Modal
                                     open={editOpen}
@@ -273,6 +280,7 @@ const Expenses = params => {
                                     {editBody}
                                 </Modal>
                                 <button id={expense._id} onClick={handleDelete} className="smallBtn">Delete</button>
+                                </>}
                             </Paper>
                         </Grid>
                     </div>
