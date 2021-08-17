@@ -4,6 +4,7 @@ import React from "react";
 import { useMutation } from '@apollo/client';
 import { ADD_IMAGE } from './mutations';
 
+
 const CloudinaryUploadWidget = params => {
     const [addImage] = useMutation(ADD_IMAGE);
 
@@ -17,7 +18,7 @@ const CloudinaryUploadWidget = params => {
                 }
             })
 
-            window.location.reload(false);
+
         }
         catch (error) {
             console.log(error);

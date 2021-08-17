@@ -30,7 +30,7 @@ const Gallery = params => {
                 }
             })
 
-            window.location.reload(false);
+            // window.location.reload(false);
         }
         catch (err) {
             console.log(err);
