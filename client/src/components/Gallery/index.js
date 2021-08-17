@@ -88,7 +88,7 @@ const Gallery = params => {
             <div className={classes.imageRoot}>
                 <ImageList className={classes.imageList} cols={2.5}>
                     {images.map((item) => (
-                        <ImageListItem key={item.img}>
+                        <ImageListItem key={item._id}>
                             <img src={item.url} alt='user image' />
                             <ImageListItemBar
                                 title={item.title}
@@ -96,9 +96,7 @@ const Gallery = params => {
                                     root: classes.titleBar
                                 }}
                                 actionIcon={
-                                    <IconButton aria-label={`star ${item.title}`}>
                                         <button className='smallBtn' id={item._id} onClick={handleDeleteImage}>Delete</button>
-                                    </IconButton>
                                 }
                             />
                         </ImageListItem>

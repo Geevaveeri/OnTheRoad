@@ -1,42 +1,144 @@
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 
-import { useQuery } from '@apollo/client';
-import { SINGLE_TRIP } from '../../utils/queries';
+import { useQuery, useMutation } from "@apollo/client";
+import { SINGLE_TRIP } from "../../utils/queries";
+import { ADD_PLAYLIST, DELETE_PLAYLIST } from "../../utils/mutations";
 
 // material imports
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
+import Modal from "@material-ui/core/Modal";
+import Input from "@material-ui/core/Input";
+import Link from '@material-ui/core/Link';
 
-import spotifyImg from '../../assets/images/spotify_badge.svg'
+import spotifyImg from '../../assets/images/spotify_badge.svg';
 
 const Playlist = params => {
     const { id: roadtripId } = useParams();
 
+    // mutations and queries
     const { loading, data } = useQuery(SINGLE_TRIP, {
-        variables: { id: roadtripId }
+        variables: { 
+                id: roadtripId
+        },
     });
 
-    const useStyles = makeStyles((theme) => ({
+    const [deletePlaylist] = useMutation(DELETE_PLAYLIST);
+    const [addPlaylist] = useMutation(ADD_PLAYLIST);
+
+    // state for url
+
+    const playlist = data.roadtrip.playlist;
+
+    const [formState, setFormState] = useState({ playlist: '' });
+
+    // modal open and close
+
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = async event => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    // material UI styles for modal and grid
+
+    const useStyles = makeStyles(theme => ({
         root: {
             flexGrow: 1,
         },
         paper: {
             padding: theme.spacing(2),
-            textAlign: 'center',
+            textAlign: "center",
             color: theme.palette.text.secondary,
+            margin: 5,
+        },
+        modal: {
+            width: 400,
+            backgroundColor: theme.palette.background.paper,
+            boxShadow: theme.shadows[5],
+            padding: theme.spacing(2, 4, 3),
+            borderRadius: "12px",
+        },
+        modalParent: {
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
+        },
+        form: {
+            minWidth: 350,
         },
     }));
 
-    const classes = useStyles();
+    // delete expense
 
+    const handleDelete = async event => {
+        try {
+            await deletePlaylist({
+                variables: { roadtripId },
+            });
+
+            window.location.reload(false);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    // form changes
+
+    const handleChange = event => {
+        const { name, value } = event.target;
+
+        setFormState({ ...formState, [name]: value });
+    };
+
+    const handleFormSubmit = async event => {
+        event.preventDefault();
+
+        try {
+            await addPlaylist({
+                variables: {
+                    playlist: formState.playlist,
+                    _id: roadtripId,
+                },
+            });
+
+            window.location.reload(false);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const classes = useStyles();
 
     if (loading) {
         return <div>Loading...</div>;
     }
 
-    const playlist = data.roadtrip.playlist || {};
+    // modal body
+
+    const body = (
+        <div className={classes.modal}>
+            <form className={classes.form} onSubmit={handleFormSubmit}>
+                <Input
+                    className="modalInput"
+                    id="playlist"
+                    name="playlist"
+                    placeholder="Playlist URL"
+                    onChange={handleChange}
+                />
+                <br></br>
+                <button className="submitBtn" type="submit">
+                    Add
+				</button>
+            </form>
+        </div>
+    );
 
     return (
 
@@ -48,18 +150,27 @@ const Playlist = params => {
                     justifyContent="center"
                     spacing={3}>
                     <Grid item xs={12} className='playlistItem'>
-                            <div className='playlistItem' key={playlist._id}>
-                                <Grid item xs={12} sm={12}>
-                                    <Paper className={classes.paper}>
-                                        <Link to={playlist}><img src={spotifyImg}></img></Link>
-                                        <br></br>
-                                        <button className='smallBtn'>Remove Playlist</button>
-                                    </Paper>
-                                </Grid>
-                            </div>
+                        <div className='playlistItem' key={roadtripId}>
+                            <Grid item xs={12} sm={12}>
+                                <Paper className={classes.paper}>
+                                    <Link to={playlist}><img src={spotifyImg}></img></Link>
+                                    <br></br>
+                                    <button onClick={deletePlaylist} className='smallBtn'>Remove Playlist</button>
+                                </Paper>
+                            </Grid>
+                        </div>
                         <button className='submitBtn'>
-                            <Link to={`/roadtrip/:id/addPlaylist`}>Add Playlist</Link>
+                            <Link onClick={handleOpen}>Add Playlist</Link>
                         </button>
+                        <Modal
+                            open={open}
+                            onClose={handleClose}
+                            className={classes.modalParent}
+                            aria-labelledby="simple-modal-title"
+                            aria-describedby="simple-modal-description"
+                        >
+                            {body}
+                        </Modal>
                     </Grid>
                 </Grid>
             </div>
