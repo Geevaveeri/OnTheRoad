@@ -9,6 +9,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
+import spotifyImg from '../../assets/images/spotify_badge.svg'
+
 const Playlist = params => {
     const { id: roadtripId } = useParams();
 
@@ -49,7 +51,8 @@ const Playlist = params => {
                             <div className='playlistItem' key={playlist._id}>
                                 <Grid item xs={12} sm={12}>
                                     <Paper className={classes.paper}>
-                                        <Link to={playlist}>Link</Link>
+                                        <Link to={playlist}><img src={spotifyImg}></img></Link>
+                                        <br></br>
                                         <button className='smallBtn'>Remove Playlist</button>
                                     </Paper>
                                 </Grid>

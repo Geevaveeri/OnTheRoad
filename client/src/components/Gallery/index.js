@@ -12,6 +12,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
+import ImageList from '@material-ui/core/ImageList';
+import ImageListItem from '@material-ui/core/ImageListItem';
+import ImageListItemBar from '@material-ui/core/ImageListItemBar';
+import IconButton from '@material-ui/core/IconButton';
+// import DeleteIcon from '@material-ui/icons/Delete';
+
 const Gallery = params => {
     const { id: roadtripId } = useParams();
 
@@ -46,6 +52,24 @@ const Gallery = params => {
             textAlign: 'center',
             color: theme.palette.text.secondary,
         },
+        imageRoot: {
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-around',
+            overflow: 'hidden',
+            backgroundColor: theme.palette.background.paper,
+        },
+        imageList: {
+            flexWrap: 'nowrap',
+            transform: 'translate(0)',
+        },
+        title: {
+            color: theme.palette.primary.lighter,
+          },
+        titleBar: {
+            background:
+                'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+        },
     }));
 
     const classes = useStyles();
@@ -61,30 +85,27 @@ const Gallery = params => {
 
         <div className='roadtripCard'>
             <h4>Gallery</h4>
-            <div className={classes.root}>
-                <Grid
-                    container
-                    justifyContent="center"
-                    spacing={3}>
-                    <Grid item xs={12} className='galleryList'>
-                        {images && images.map(image => (
-                            <div className='galleryItem' key={image._id}>
-                                <Grid item xs={6} sm={3}>
-                                    <Paper className={classes.paper}>
-                                        <img src={image.url} alt={image.alt} />
-                                        <p>posted by: {image.username}</p>
-                                        <button className='smallBtn' id={image._id} onClick={handleDeleteImage}>Delete Image</button>
-                                    </Paper>
-                                </Grid>
-                            </div>
-                        ))}
-                        {/* <button className='submitBtn'>
-                            <Link to={`/roadtrip/:id/upload`}>Upload</Link>
-                        </button> */}
-                        <CloudinaryUploadWidget roadtripId={roadtripId} />
-                    </Grid>
-                </Grid>
+            <div className={classes.imageRoot}>
+                <ImageList className={classes.imageList} cols={2.5}>
+                    {images.map((item) => (
+                        <ImageListItem key={item.img}>
+                            <img src={item.url} alt='user image' />
+                            <ImageListItemBar
+                                title={item.title}
+                                classes={{
+                                    root: classes.titleBar
+                                }}
+                                actionIcon={
+                                    <IconButton aria-label={`star ${item.title}`}>
+                                        <button className='smallBtn' id={item._id} onClick={handleDeleteImage}>Delete</button>
+                                    </IconButton>
+                                }
+                            />
+                        </ImageListItem>
+                    ))}
+                </ImageList>
             </div>
+            <CloudinaryUploadWidget roadtripId={roadtripId} />
         </div>
     );
 };
