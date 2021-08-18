@@ -13,7 +13,7 @@
 
 /* buttons */
 
-.smallBtn {
+.smallBtn, .deleteBtn {
   margin: 20px;  
   border-radius: 6px;
   border: none;
@@ -40,19 +40,6 @@
 
 .submitBtn a, .submitBtn a:visited{
   color: white;
-}
-
-.deleteBtn {
-  margin: 20px;  
-  background-color: var(--light-green);
-  border-radius: 12px;
-  border: none;
-  color: white;
-  padding: 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
 }
 
 /* header and nav styles */
@@ -140,11 +127,22 @@ a:link {
   margin: 1rem;
   width: 300px;
   box-shadow: 1px 1px .2em var(--light-green);
-  
 }
 
 .roadtripItem p {
   font-weight: lighter;
+}
+
+.roadtripItem h4 {
+  color: white;
+  background-color: var(--light-green);
+  border-radius: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.roadtripItem h4:visited {
+  text-decoration: none;
 }
 
 /* single roadtrip styles */
@@ -157,11 +155,24 @@ a:link {
   border: 2px solid var(--light-green);
 }
 
+.roadtripCard h4 {
+  color: white;
+  background-color: var(--light-green);
+  border-radius: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-weight: lighter;
+  font-size: 120%;
+  box-shadow: 1px 1px .1em black;
+}
+
 /* grid styles */
 
 .gridItem {
-  min-width: 300px;
-  min-height: 200px;
+  min-width: fit-content;
+  min-height: fit-content;
+  display: flex;
+  align-items: center;
 }
 
 .gridItem p {
@@ -178,24 +189,33 @@ a:link {
 }
 
 .chart {
-  max-width: 50%;
-  position: relative;
-  top: 10px;
-  left: 25%;
-  right: 25%;
+  max-width: 25rem;
   margin-bottom: 40px;
+}
+
+.userContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.userItem {
+  display: flex;
 }
 
 /* footer styles */
 
 .footer {
   background-image: url('./assets/images/footer.png');
-  background-position: center;
-  width: 100vw;
+  background-position: bottom;
   min-height: 12rem;
   position: bottom;
+  bottom: 0;
   margin-top: 5rem;
   color: var(--dark-green);
+  background-repeat: no-repeat;
+  background-size: 100vmax;
 
 }
 
