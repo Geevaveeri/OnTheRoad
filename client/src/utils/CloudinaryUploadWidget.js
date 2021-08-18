@@ -37,15 +37,6 @@ const CloudinaryUploadWidget = params => {
             }
         }
     );
-    // document.getElementById("upload_widget").addEventListener(
-    //     "click",
-    //     function () {
-    //         myWidget.open();
-    //     },
-    //     false
-    // );
-
-
 
     return (
         <button id="upload_widget" className="submitBtn" onClick={() => myWidget.open()}>
