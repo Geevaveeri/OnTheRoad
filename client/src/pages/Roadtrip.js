@@ -11,6 +11,7 @@ import Stops from '../components/Stops';
 import Playlist from '../components/Playlist';
 import Expenses from '../components/Expenses';
 import Gallery from '../components/Gallery';
+import Recipes from '../components/Recipes';
 
 const SingleRoadtrip = params => {
     const { id: roadtripId } = useParams();
@@ -49,6 +50,10 @@ const SingleRoadtrip = params => {
             <Expenses
                 roadtripId={roadtrip._id}>
             </Expenses>
+
+            <Recipes
+                roadtripId={roadtrip._id}>
+            </Recipes>
             <div>
                 <img src={logo} alt='site logo'></img>
             </div>

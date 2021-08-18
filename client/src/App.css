@@ -166,6 +166,10 @@ a:link {
   box-shadow: 1px 1px .1em black;
 }
 
+.roadtripCard h3 {
+  color: var(--dark-green);
+}
+
 /* grid styles */
 
 .gridItem {
@@ -189,19 +193,12 @@ a:link {
 }
 
 .chart {
-  max-width: 25rem;
+  width: 20rem;
   margin-bottom: 40px;
 }
 
-.userContainer {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.userItem {
-  display: flex;
+#chef-image {
+  width: 10rem;
 }
 
 /* footer styles */
