@@ -46,12 +46,33 @@ const Expenses = params => {
 	// expenses
 
 	const expenses = data.roadtrip.expenses || [];
-	const individualExpense = data.roadtrip.users.map(user => {
-		const oneCost = user.expenses.reduce((total, expense) => {
-			return total + expense.cost;
-		}, 0);
-		return oneCost;
-	});
+	// const individualExpense = data.roadtrip.users.map(user => {
+	// 	const oneCost = user.expenses.reduce((total, expense) => {
+	// 		return total + expense.cost;
+	// 	}, 0);
+	// 	return oneCost;
+	// });
+	const userObj = {}
+	users.forEach(user => {
+		userObj[user] = 0;
+	})
+
+	console.log(userObj);
+
+
+	expenses.forEach(expense => {
+		if (userObj.hasOwnProperty(expense.username)) {
+			userObj[expense.username] += expense.cost
+		}
+	})
+
+	const individualExpense = Object.keys(userObj).map(key => {
+		return userObj[key]
+	})
+
+	console.log(userObj);
+	console.log(individualExpense);
+
 
 	// state for expenses
 
