@@ -78,6 +78,7 @@ const Playlist = params => {
     // delete expense
 
     const handleDelete = async event => {
+        console.log(roadtripId)
         try {
             await deletePlaylist({
                 variables: { 
@@ -169,7 +170,7 @@ const Playlist = params => {
                                     <Paper className={classes.paper}>
                                         <Link to={playlist}><img src={spotifyImg}></img></Link>
                                         <br></br>
-                                        <button onClick={deletePlaylist} className='smallBtn'>Remove Playlist</button>
+                                        <button onClick={handleDelete} className='smallBtn'>Remove Playlist</button>
                                     </Paper>
                                 </Grid>
                                 </>
