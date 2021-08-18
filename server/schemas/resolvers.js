@@ -67,10 +67,6 @@ const resolvers = {
 			console.log("hit");
 			const user = await User.create(args);
 
-			if (user.username) {
-				throw new AuthenticationError("Username already taken.");
-			}
-
 			const token = signToken(user);
 			return { token, user };
 		},

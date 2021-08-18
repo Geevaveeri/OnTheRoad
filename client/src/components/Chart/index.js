@@ -3,8 +3,8 @@ import { Doughnut } from 'react-chartjs-2'
 
 const DoughnutChart = ({ data, labels }) => {
     return (
-        <div>
-            <Doughnut 
+        <div className='chart'>
+            <Doughnut
                 data={{
                     labels: labels,
                     datasets: [

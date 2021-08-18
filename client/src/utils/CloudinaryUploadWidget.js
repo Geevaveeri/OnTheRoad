@@ -27,8 +27,8 @@ const CloudinaryUploadWidget = params => {
 
     var myWidget = window.cloudinary.createUploadWidget(
         {
-            cloudName: process.env.REACT_APP_CC_NAME,
-            uploadPreset: process.env.REACT_APP_CC_PRESET,
+            cloudName: "dne2ggd07",
+            uploadPreset: "rnnidcq5",
             sources: ['local', 'url', 'facebook', 'instagram', 'google_drive']
         },
         (error, result) => {
@@ -37,15 +37,6 @@ const CloudinaryUploadWidget = params => {
             }
         }
     );
-    // document.getElementById("upload_widget").addEventListener(
-    //     "click",
-    //     function () {
-    //         myWidget.open();
-    //     },
-    //     false
-    // );
-
-
 
     return (
         <button id="upload_widget" className="submitBtn" onClick={() => myWidget.open()}>
