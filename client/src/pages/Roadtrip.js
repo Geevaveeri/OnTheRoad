@@ -38,9 +38,9 @@ const SingleRoadtrip = params => {
                 roadtripId={roadtrip._id}>
             </Users>
 
-            <Stops
+            {/* <Stops
                 roadtripId={roadtrip._id}>
-            </Stops>
+            </Stops> */}
 
             <Gallery
                 roadtripId={roadtrip._id}>
