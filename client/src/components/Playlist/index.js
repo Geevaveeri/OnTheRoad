@@ -127,6 +127,11 @@ const Playlist = params => {
         }
     };
 
+    const handleVisit = event => {
+        console.log(playlist)
+        window.open(playlist)
+    }
+
     const classes = useStyles();
 
     if (loading) {
@@ -168,7 +173,7 @@ const Playlist = params => {
                                 <>
                                 <Grid item xs={12} sm={12}>
                                     <Paper className={classes.paper}>
-                                        <Link to={playlist}><img src={spotifyImg}></img></Link>
+                                        <Link to={formState.url}><img onClick={handleVisit} src={spotifyImg}/></Link>
                                         <br></br>
                                         <button onClick={handleDelete} className='smallBtn'>Remove Playlist</button>
                                     </Paper>

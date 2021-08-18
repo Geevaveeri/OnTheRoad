@@ -15,7 +15,6 @@ import Grid from '@material-ui/core/Grid';
 import ImageList from '@material-ui/core/ImageList';
 import ImageListItem from '@material-ui/core/ImageListItem';
 import ImageListItemBar from '@material-ui/core/ImageListItemBar';
-import IconButton from '@material-ui/core/IconButton';
 // import DeleteIcon from '@material-ui/icons/Delete';
 
 const Gallery = params => {
@@ -89,7 +88,7 @@ const Gallery = params => {
                 <ImageList className={classes.imageList} cols={2.5}>
                     {images.map((item) => (
                         <ImageListItem key={item._id}>
-                            <img src={item.url} alt='user image' />
+                            <img src={item.url} alt='uploaded by user' />
                             <ImageListItemBar
                                 title={item.title}
                                 classes={{
