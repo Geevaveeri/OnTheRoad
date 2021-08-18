@@ -119,33 +119,30 @@ const Users = params => {
                     container
                     justifyContent="center"
                     spacing={3}>
-                    <Grid className='gridItem' item xs={12} className='userList'>
-                        {users && users.map(user => (
-                            <div className='userItem' key={user._id}>
-                                <Grid item xs={6} sm={3}>
-                                    <Paper className={classes.paper}>{user.username}
-                                        <button className='smallBtn' id={user._id} onClick={handleRemoveUser}>Remove User</button>
-                                    </Paper>
-                                </Grid>
-                            </div>
-                        ))}
-                        <button
-                            type="button"
-                            className='submitBtn'
-                            onClick={handleOpen}>
-                            Add User
-                        </button>
-                        <Modal
-                            open={open}
-                            onClose={handleClose}
-                            className={classes.modalParent}
-                            aria-labelledby="simple-modal-title"
-                            aria-describedby="simple-modal-description"
-                        >
-                            {body}
-                        </Modal>
-                    </Grid>
+                    {users && users.map(user => (
+                        <Grid item xs={12} sm={4} key={user._id}>
+                            <Paper className={classes.paper}>
+                                <h3>{user.username}</h3>
+                                <button className='smallBtn' id={user._id} onClick={handleRemoveUser}>Remove User</button>
+                            </Paper>
+                        </Grid>
+                    ))}
                 </Grid>
+                <button
+                    type="button"
+                    className='submitBtn'
+                    onClick={handleOpen}>
+                    Add User
+                        </button>
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                    className={classes.modalParent}
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                >
+                    {body}
+                </Modal>
             </div>
         </div>
     );

@@ -295,9 +295,17 @@ const Expenses = params => {
 	return (
 		<div className="roadtripCard">
 			<h4>Expenses</h4>
+			<Grid 
+				container
+				justifyContent="center"
+                spacing={3}>
 			<DoughnutChart data={individualExpense} labels={users} />
+			</Grid>
 
-			<Grid container>
+			<Grid 
+				container
+				justifyContent="center"
+                spacing={3}>
 				{expenses &&
 					expenses.map(expense => (
 						<div key={expense._id}>
