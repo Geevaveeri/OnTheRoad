@@ -80,7 +80,8 @@ const Playlist = params => {
     const handleDelete = async event => {
         try {
             await deletePlaylist({
-                variables: { roadtripId },
+                variables: { 
+                    _id: roadtripId },
             });
 
             window.location.reload(false);
@@ -111,11 +112,11 @@ const Playlist = params => {
         }
 
         try {
-            console.log(typeof(formState.url))
+            console.log(formState, roadtripId)
             await addPlaylist({
                 variables: {
                     playlist: formState.url,
-                    _id: roadtripId,
+                    roadtripId: roadtripId,
                 }
             });
 
@@ -162,13 +163,17 @@ const Playlist = params => {
                     spacing={3}>
                     <Grid item xs={12} className='playlistItem'>
                         <div className='playlistItem' key={roadtripId}>
-                            <Grid item xs={12} sm={12}>
-                                <Paper className={classes.paper}>
-                                    <Link to={playlist}><img src={spotifyImg}></img></Link>
-                                    <br></br>
-                                    <button onClick={deletePlaylist} className='smallBtn'>Remove Playlist</button>
-                                </Paper>
-                            </Grid>
+                            {playlist && 
+                                <>
+                                <Grid item xs={12} sm={12}>
+                                    <Paper className={classes.paper}>
+                                        <Link to={playlist}><img src={spotifyImg}></img></Link>
+                                        <br></br>
+                                        <button onClick={deletePlaylist} className='smallBtn'>Remove Playlist</button>
+                                    </Paper>
+                                </Grid>
+                                </>
+                            }
                         </div>
                         <button className='submitBtn'>
                             <Link onClick={handleOpen}>Add Playlist</Link>
