@@ -24,10 +24,10 @@ I want an app that can help me organize and coordinate future road trips with fr
 
 
 ## Contributors
-Casey Rose
-Michelle Gleave
-Sharni Zaugg
-Dakota Ewing
+- Casey Rose
+- Michelle Gleave
+- Sharni Zaugg
+- Dakota Ewing
 
 ## Live App
 https://ontheroadapp.herokuapp.com/
