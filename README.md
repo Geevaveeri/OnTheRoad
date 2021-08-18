@@ -2,10 +2,10 @@
 
 ### Table of Contents
 - [Description](#description)
-- [UserStory](#userstory)
+- [User Story](#user-story)
 - [Screenshots](#screenshots)
 - [Contributors](#contributors)
-- [Live App](#liveapp)
+- [Live App](#live-app)
 
 ## Description
 On The Road, or as we like to call it OTR, is the one stop shop for your road trip needs.  With OTR, you can create a road trip dashboard to store all of the necessities for your road trip.  You can add each person who is coming with you, store your group spotify playlist, upload the images you take, and keep track of what everybody has spent, and more importantly, how much everybody owes!  With OTR, gone are the days of asking, “Who took that picture”, and “How much do I owe you again?”.  
