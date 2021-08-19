@@ -21,11 +21,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 
 const Expenses = params => {
-	// const currentUser = useQuery(GET_ME);
-	//const currentUser = me?.me || {};
-	// console.log(currentUser);
-	// const me = currentUser.data.me.username;
-	// console.log(me);
 
 	// roadtrip id for all
 
