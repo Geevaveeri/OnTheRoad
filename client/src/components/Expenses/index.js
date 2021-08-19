@@ -299,11 +299,8 @@ const Expenses = params => {
 				container
 				justifyContent="center"
                 spacing={3}>
-				<Grid item xs={12} sm={4}>
 			<DoughnutChart data={individualExpense} labels={users} />
-				</Grid>
 			</Grid>
-
 
 			<Grid 
 				container

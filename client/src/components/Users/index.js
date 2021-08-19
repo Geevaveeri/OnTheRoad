@@ -120,8 +120,9 @@ const Users = params => {
                     justifyContent="center"
                     spacing={3}>
                     {users && users.map(user => (
-                        <Grid className="gridItem" item xs={12} sm={4} key={user._id}>
-                            <Paper className={classes.paper}>{user.username}
+                        <Grid item xs={12} sm={4} key={user._id}>
+                            <Paper className={classes.paper}>
+                                <h3>{user.username}</h3>
                                 <button className='smallBtn' id={user._id} onClick={handleRemoveUser}>Remove User</button>
                             </Paper>
                         </Grid>
