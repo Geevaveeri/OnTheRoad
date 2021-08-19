@@ -17,8 +17,6 @@ I want an app that can help me organize and coordinate future road trips with fr
 
 ## Screenshots
 ![Screen Shot 2021-08-17 at 10 25 54 pm](https://user-images.githubusercontent.com/72106865/129837245-4d4392d4-d563-423d-a3e5-2617f1a3de82.png)
-![Screen Shot 2021-08-17 at 10 26 02 pm](https://user-images.githubusercontent.com/72106865/129837256-36f7d7ee-ac59-454c-9a84-165a1daba6b9.png)
-![Screen Shot 2021-08-17 at 10 26 10 pm](https://user-images.githubusercontent.com/72106865/129837259-4e6d2cac-14d1-4c6e-adbe-e91e1963a3b9.png)
 
 
 
